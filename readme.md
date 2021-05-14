@@ -28,6 +28,7 @@ Welcome to EasyBuild!
  2. Configure, build and install:
 
     ```
+    make prepare
     make [package]
     ```
 
