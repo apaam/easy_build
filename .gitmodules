@@ -1,0 +1,18 @@
+[submodule "contrib/netcdf/src"]
+	path = contrib/netcdf/src
+	url = https://github.com/johntfoster/netcdf-c.git
+[submodule "contrib/yaml/src"]
+	path = contrib/yaml/src
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "contrib/peridigm/src"]
+	path = contrib/peridigm/src
+	url = https://github.com/peridigm/peridigm.git
+[submodule "contrib/lapack/src"]
+	path = contrib/lapack/src
+	url = https://github.com/Reference-LAPACK/lapack.git
+[submodule "contrib/trilinos/src"]
+	path = contrib/trilinos/src
+	url = https://github.com/trilinos/Trilinos.git
+[submodule "contrib/hdf5/src"]
+	path = contrib/hdf5/src
+	url = https://github.com/HDFGroup/hdf5.git

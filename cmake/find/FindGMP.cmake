@@ -1,0 +1,17 @@
+# variables: GMP_FOUND GMP_INCLUDE_DIRS GMP_LIBRARIES
+
+if(GMP_INCLUDE_DIRS AND GMP_LIBRARIES)
+  set(GMP_FIND_QUIETLY TRUE)
+endif(GMP_INCLUDE_DIRS AND GMP_LIBRARIES)
+
+find_path(
+  GMP_INCLUDE_DIRS
+  NAMES gmp.h
+  PATHS $ENV{GMPDIR} ${INCLUDE_INSTALL_DIR})
+
+find_library(GMP_LIBRARIES gmp PATHS $ENV{GMPDIR} ${LIB_INSTALL_DIR})
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(GMP DEFAULT_MSG GMP_INCLUDE_DIRS
+                                  GMP_LIBRARIES)
+mark_as_advanced(GMP_INCLUDE_DIRS GMP_LIBRARIES)

@@ -1,0 +1,76 @@
+message(STATUS "Configuring mlpack ...")
+
+if(MLPACK_INCLUDED)
+  return()
+endif()
+set(MLPACK_INCLUDED TRUE)
+
+include(${CMAKE_SOURCE_DIR}/cmake/include/armadillo.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/ensmallen.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/boost.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/cereal.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/stb.cmake)
+
+if(USE_INTERNAL_MLPACK)
+  set(MLPACK_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/mlpack/ep)
+  set(MLPACK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/src)
+  set(MLPACK_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/build)
+  set(MLPACK_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/install)
+  set(TMP_C_FLAGS
+      "-DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
+  set(TMP_CXX_FLAGS
+      "-DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
+
+  if(NOT EXISTS "${MLPACK_SOURCE_DIR}/CMakeLists.txt")
+    message(SEND_ERROR "Submodule mlpack missing. To fix, try run: "
+                       "git submodule update --init --recursive")
+  endif()
+
+  ExternalProject_Add(
+    MLPACK
+    PREFIX ${MLPACK_EP_ROOT}
+    SOURCE_DIR ${MLPACK_SOURCE_DIR}
+    BINARY_DIR ${MLPACK_BUILD_DIR}
+    INSTALL_DIR ${MLPACK_INSTALL_DIR}
+    LOG_CONFIGURE TRUE
+    LOG_BUILD TRUE
+    LOG_INSTALL TRUE
+    LOG_OUTPUT_ON_FAILURE TRUE
+    CONFIGURE_COMMAND
+      cmake ${CMAKE_GENERATOR_FLAG} -DBUILD_SHARED_LIBS=OFF
+      -DARMADILLO_INCLUDE_DIR=${ARMADILLO_INCLUDE_DIRS}
+      -DARMADILLO_LIBRARY=${ARMADILLO_LIBRARIES}
+      -DENSMALLEN_INCLUDE_DIR=${ENSMALLEN_INCLUDE_DIRS}
+      -DBOOST_ROOT=${BOOST_ROOT} -DBOOST_INCLUDEDIR=${BOOST_INCLUDE_DIRS}
+      -DCEREAL_INCLUDE_DIR=${CEREAL_INCLUDE_DIRS}
+      -DSTB_IMAGE_INCLUDE_DIR=${STB_INCLUDE_DIRS}
+      -DCMAKE_INSTALL_PREFIX=${MLPACK_INSTALL_DIR}
+      -DMLPACK_SOURCE_DIR=${MLPACK_SOURCE_DIR}
+      -DCMAKE_CXX_FLAGS=${TMP_CXX_FLAGS} -DCMAKE_C_FLAGS=${TMP_C_FLAGS}
+      -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} ${MLPACK_SOURCE_DIR}
+    BUILD_COMMAND ${GENERATOR} -j${NUM_CORES} mlpack_headers mlpack
+    INSTALL_COMMAND "")
+
+  if(USE_INTERNAL_ARMADILLO)
+    add_dependencies(MLPACK ARMADILLO)
+  endif(USE_INTERNAL_ARMADILLO)
+
+  set(MLPACK_INCLUDE_DIRS ${MLPACK_BUILD_DIR}/include)
+  set(MLPACK_LIBRARIES mlpack)
+  set(MLPACK_LIBRARY_DIRS ${MLPACK_BUILD_DIR}/lib)
+else()
+  find_package(MLPACK)
+  if(NOT MLPACK_FOUND)
+    message(SEND_ERROR "Can't find system mlpack package.")
+  endif()
+endif()
+
+add_definitions(-DARMA_USE_LAPACK)
+set(MLPACK_LIBRARIES ${MLPACK_LIBRARIES} ${ARMADILLO_LIBRARIES}
+                     ${BOOST_LIBRARIES})
+include_directories(AFTER ${MLPACK_INCLUDE_DIRS})
+link_directories(AFTER ${MLPACK_LIBRARY_DIRS})
+message(STATUS "Using MLPACK_INCLUDE_DIRS=${MLPACK_INCLUDE_DIRS}")
+message(STATUS "Using MLPACK_LIBRARIES=${MLPACK_LIBRARIES}")
+message(STATUS "Using MLPACK_LIBRARY_DIRS=${MLPACK_LIBRARY_DIRS}")
