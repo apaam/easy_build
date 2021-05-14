@@ -34,9 +34,9 @@ cmake ${CMAKE_GENERATOR_FLAG} \
 if [ $USE_NINJA ]; then
   echo "Build with ninja"
   $GENERATOR -j$NUM_CORES
-  $GENERATOR -j$NUM_CORES install
+  # $GENERATOR -j$NUM_CORES install
 else
   echo "Build with modern make"
   $GENERATOR -j$NUM_CORES
-  $GENERATOR -j$NUM_CORES install
+  # $GENERATOR -j$NUM_CORES install
 fi
