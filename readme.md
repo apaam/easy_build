@@ -7,6 +7,8 @@ Welcome to EasyBuild!
 
 [peridigm](https://github.com/peridigm/peridigm.git): an open-source computational peridynamics code developed, originally at Sandia National Laboratories and open-sourced in 2011, for massively-parallel multi-physics simulations.
 
+[netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics.
+
 ### 2. Installation
 
  1. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.

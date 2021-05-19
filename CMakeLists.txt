@@ -26,8 +26,15 @@ if(UNIX AND NOT APPLE)
   set(CMAKE_C_STANDARD_LIBRARIES ${DEFAULT_LIBS})
 endif()
 
+# contrib root dir
+set(CONTRIB_ROOT_DIR
+    ${CMAKE_SOURCE_DIR}/contrib
+    CACHE PATH "contrib path prefix")
+message(STATUS "using CONTRIB_ROOT_DIR=${CONTRIB_ROOT_DIR}")
+
 # packages
 option(ENABLE_PERIDIGM "build peridigm" OFF)
+option(ENABLE_NETDEM "build netdem" OFF)
 
 # tests, tools and examples
 option(ENABLE_TESTS "build tests" ON)
@@ -40,6 +47,24 @@ option(USE_INTERNAL_TRILINOS "use internal trilinos" ON)
 option(USE_INTERNAL_HDF5 "use internal hdf5" ON)
 option(USE_INTERNAL_NETCDF "use internal netcdf" ON)
 option(USE_INTERNAL_YAML "use internal yaml" ON)
+
+# for netdem
+option(USE_INTERNAL_NETDEM "use internal netdem" ON)
+option(USE_INTERNAL_ARMADILLO "use internal armadillo" ON)
+option(USE_INTERNAL_ARPACK "use internal arpack" ON)
+option(USE_INTERNAL_CEREAL "use internal cereal" ON)
+option(USE_INTERNAL_CGAL "use internal cgal" ON)
+option(USE_INTERNAL_CORK "use internal cork" ON)
+option(USE_INTERNAL_EIGEN "use internal eigen" ON)
+option(USE_INTERNAL_ENSMALLEN "use internal ensmallen" ON)
+option(USE_INTERNAL_GTEST "use internal gtest" ON)
+option(USE_INTERNAL_IGL "use internal igl" ON)
+option(USE_INTERNAL_JSON "use internal json" ON)
+option(USE_INTERNAL_LAPACK "use internal lapack" ON)
+option(USE_INTERNAL_MLPACK "use internal mlpack" ON)
+option(USE_INTERNAL_MPFR "use internal mpfr" ON)
+option(USE_INTERNAL_OPENBLAS "use internal openblas" ON)
+option(USE_INTERNAL_OPENMP "use internal openmp" ON)
 
 # the compilation of these is really time consuming, chose to use pre-build
 # packages in the os.
@@ -55,10 +80,18 @@ if(ENABLE_PERIDIGM)
   include(cmake/include/peridigm.cmake)
 endif()
 
+if(ENABLE_NETDEM)
+  include(cmake/include/netdem.cmake)
+endif()
+
 add_custom_target(${PROJECT_NAME})
 
 if(ENABLE_PERIDIGM AND USE_INTERNAL_PERIDIGM)
   add_dependencies(${PROJECT_NAME} PERIDIGM)
+endif()
+
+if(ENABLE_NETDEM AND USE_INTERNAL_NETDEM)
+  add_dependencies(${PROJECT_NAME} NETDEM)
 endif()
 
 # tests
