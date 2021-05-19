@@ -16,3 +16,51 @@
 [submodule "contrib/hdf5/src"]
 	path = contrib/hdf5/src
 	url = https://github.com/HDFGroup/hdf5.git
+[submodule "contrib/netdem/src"]
+	path = contrib/netdem/src
+	url = https://github.com/net-dem/netdem.git
+[submodule "contrib/armadillo/src"]
+	path = contrib/armadillo/src
+	url = https://gitlab.com/conradsnicta/armadillo-code.git
+[submodule "contrib/cork/src"]
+	path = contrib/cork/src
+	url = https://github.com/libigl/cork.git
+[submodule "contrib/igl/src"]
+	path = contrib/igl/src
+	url = https://github.com/libigl/libigl.git
+[submodule "contrib/cgal/src"]
+	path = contrib/cgal/src
+	url = https://github.com/CGAL/cgal.git
+[submodule "contrib/gtest/src"]
+	path = contrib/gtest/src
+	url = https://github.com/google/googletest.git
+[submodule "contrib/mlpack/src"]
+	path = contrib/mlpack/src
+	url = https://github.com/mlpack/mlpack.git
+[submodule "contrib/ensmallen/src"]
+	path = contrib/ensmallen/src
+	url = https://github.com/mlpack/ensmallen
+[submodule "contrib/cereal/src"]
+	path = contrib/cereal/src
+	url = https://github.com/USCiLab/cereal
+[submodule "contrib/eigen/src"]
+	path = contrib/eigen/src
+	url = https://gitlab.com/libeigen/eigen.git
+[submodule "contrib/json/src"]
+	path = contrib/json/src
+	url = https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent.git
+[submodule "contrib/arpack/src"]
+	path = contrib/arpack/src
+	url = https://github.com/opencollab/arpack-ng.git
+[submodule "contrib/openblas/src"]
+	path = contrib/openblas/src
+	url = https://github.com/xianyi/OpenBLAS.git
+[submodule "contrib/mpfr/src"]
+	path = contrib/mpfr/src
+	url = https://github.com/net-dem/mpfr.git
+[submodule "contrib/stb/src"]
+	path = contrib/stb/src
+	url = https://github.com/nothings/stb.git
+[submodule "contrib/openmp/src"]
+	path = contrib/openmp/src
+	url = https://github.com/llvm-mirror/openmp.git
