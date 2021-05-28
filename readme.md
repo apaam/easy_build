@@ -11,7 +11,7 @@ Welcome to EasyBuild!
 
 [netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics.
 
-### 2. Installation
+### 2. To install a package
 
  0. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.
 
