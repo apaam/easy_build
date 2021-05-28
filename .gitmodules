@@ -64,3 +64,9 @@
 [submodule "contrib/openmp/src"]
 	path = contrib/openmp/src
 	url = https://github.com/llvm-mirror/openmp.git
+[submodule "contrib/liggghts/src"]
+	path = contrib/liggghts/src
+	url = https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git
+[submodule "contrib/vtk/src"]
+	path = contrib/vtk/src
+	url = https://github.com/Kitware/VTK.git

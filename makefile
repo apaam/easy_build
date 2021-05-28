@@ -8,6 +8,10 @@ peridigm:
 	git submodule update --depth 1 --init contrib/trilinos/src
 	git submodule update --depth 1 --init contrib/peridigm/src
 	PERIDIGM=ON bash install.sh
+liggghts:
+	git submodule update --depth 1 --init contrib/vtk/src
+	git submodule update --depth 1 --init contrib/liggghts/src
+	LIGGGHTS=ON bash install.sh	
 netdem:
 	git submodule update --depth 1 --init contrib/armadillo/src
 	git submodule update --depth 1 --init contrib/arpack/src
