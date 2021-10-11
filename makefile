@@ -1,6 +1,7 @@
 prepare:
 	git submodule sync
 peridigm:
+	git submodule update --depth 1 --init contrib/openblas/src
 	git submodule update --depth 1 --init contrib/lapack/src
 	git submodule update --depth 1 --init contrib/hdf5/src
 	git submodule update --depth 1 --init contrib/netcdf/src

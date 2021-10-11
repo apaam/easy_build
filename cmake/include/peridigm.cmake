@@ -14,12 +14,12 @@ if(USE_INTERNAL_PERIDIGM)
   set(PERIDIGM_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/peridigm/build)
   set(PERIDIGM_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/peridigm/install)
   set(TMP_C_FLAGS
-      "-O2 -Wall -pedantic -Wno-long-long -ftrapv -Wno-deprecated -L${YAML_LIBRARY_DIRS}"
+      "-O2 -w -pedantic -ftrapv -L${YAML_LIBRARY_DIRS} -L${OPENBLAS_LIBRARY_DIRS} -L/usr/local/Cellar/gcc/11.2.0/lib/gcc/11 -lgfortran -lopenblas"
   )
   set(TMP_CXX_FLAGS
-      "-O2 -Wall -std=c++14 -pedantic -Wno-long-long -ftrapv -Wno-deprecated -L${YAML_LIBRARY_DIRS}"
+      "-O2 -w -std=c++14 -pedantic -ftrapv -L${YAML_LIBRARY_DIRS} -L${OPENBLAS_LIBRARY_DIRS} -L/usr/local/Cellar/gcc/11.2.0/lib/gcc/11 -lgfortran -lopenblas"
   )
-  set(TMP_PREFIX_PATH ${TRILINOS_INCLUDE_DIRS}/../ ${YAML_INCLUDE_DIRS}/../)
+  set(TRILINOS_DIR ${TRILINOS_INCLUDE_DIRS}/../ ${YAML_INCLUDE_DIRS}/../)
 
   if(NOT EXISTS "${PERIDIGM_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule peridigm missing. To fix, try run: "
@@ -38,7 +38,9 @@ if(USE_INTERNAL_PERIDIGM)
     LOG_OUTPUT_ON_FAILURE TRUE
     CONFIGURE_COMMAND
       cmake ${CMAKE_GENERATOR_FLAG} -DCMAKE_BUILD_TYPE=Release
-      -DCMAKE_PREFIX_PATH=${TMP_PREFIX_PATH} -DBOOST_ROOT=${BOOST_ROOT}
+      -DTRILINOS_DIR=${TRILINOS_DIR} -DBOOST_ROOT=${BOOST_ROOT}
+      -DBLAS_LIBRARY_DIRS=${OPENBLAS_LIBRARY_DIRS}
+      -DLAPACK_LIBRARY_DIRS=${LAPACK_LIBRARY_DIRS}
       -DCMAKE_INSTALL_PREFIX=${PERIDIGM_INSTALL_DIR}
       -DCMAKE_CXX_FLAGS=${TMP_CXX_FLAGS} -DCMAKE_C_FLAGS=${TMP_C_FLAGS}
       -DCMAKE_CXX_COMPILER=${MPICXX_COMPILER}
