@@ -4,9 +4,6 @@
 [submodule "contrib/yaml/src"]
 	path = contrib/yaml/src
 	url = https://github.com/jbeder/yaml-cpp.git
-[submodule "contrib/peridigm/src"]
-	path = contrib/peridigm/src
-	url = https://github.com/net-dem/peridigm_customized.git
 [submodule "contrib/lapack/src"]
 	path = contrib/lapack/src
 	url = https://github.com/Reference-LAPACK/lapack.git
