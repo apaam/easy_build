@@ -67,3 +67,6 @@
 [submodule "contrib/vtk/src"]
 	path = contrib/vtk/src
 	url = https://github.com/Kitware/VTK.git
+[submodule "contrib/peridigm/src"]
+	path = contrib/peridigm/src
+	url = https://github.com/net-dem/peridigm_customized.git
