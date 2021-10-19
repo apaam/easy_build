@@ -70,4 +70,3 @@
 [submodule "contrib/peridigm/src"]
 	path = contrib/peridigm/src
 	url = https://github.com/net-dem/peridigm_customized.git
-	branch = origin/main
