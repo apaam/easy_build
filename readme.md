@@ -3,15 +3,7 @@ Welcome to EasyBuild!
 
 **EasyBuild** provides a collection of third-party open-source libraries and softwares in computational mechanics. It aims at easing the complex configuring, building and installing processes of these computational packages, and thus helping researchers to get a quick start. 
 
-### 1. Supported packages
-
-[peridigm](https://github.com/peridigm/peridigm.git): an open-source computational peridynamics code developed, originally at Sandia National Laboratories and open-sourced in 2011, for massively-parallel multi-physics simulations.
-
-[liggghts](https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git): an open source discrete element method particle simulation software that is improved from LAMMPS for general granular and granular heat transfer simulations.
-
-[netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics.
-
-### 2. To install a package
+### 1. To install a package
 
  0. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.
 
@@ -36,7 +28,7 @@ Welcome to EasyBuild!
     make [package]
     ```
 
-### 3. To add a new package
+### 2. To add a new package
 
 1. Create the submodule using:
 
@@ -77,6 +69,14 @@ Welcome to EasyBuild!
 
 Note: a dependency of the existing packages can be a standalone package as well. One can make them exiplicit by following the aformentioned procedures, it there is an interest. In this case, the steps of *1) create submodule* and *5) create cmake files* are not required, minor modifications (e.g., the path, configurations) in the cmake files might be needed though.
 
-### 4. Support
+### 3. Support
 
 Supported packages are added based on needs. If you need packages that are not on the list, or would like to contribute by adding them, please [open an issue](https://github.com/net-dem/easy_build/issues) or [submit a pull request](https://github.com/net-dem/easy_build/pulls).
+
+### 4. Supported packages
+
+[peridigm](https://github.com/peridigm/peridigm.git): an open-source computational peridynamics code developed, originally at Sandia National Laboratories and open-sourced in 2011, for massively-parallel multi-physics simulations.
+
+[liggghts](https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git): an open source discrete element method particle simulation software that is improved from LAMMPS for general granular and granular heat transfer simulations.
+
+[netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics.

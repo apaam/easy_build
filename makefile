@@ -1,18 +1,34 @@
 prepare:
 	git submodule sync
-peridigm:
-	git submodule update --depth 1 --init contrib/openblas/src
-	git submodule update --depth 1 --init contrib/lapack/src
+
+hdf5:
 	git submodule update --depth 1 --init contrib/hdf5/src
-	git submodule update --depth 1 --init contrib/netcdf/src
-	git submodule update --depth 1 --init contrib/yaml/src
-	git submodule update --depth 1 --init contrib/trilinos/src
-	git submodule update --depth 1 --init contrib/peridigm/src
-	PERIDIGM=ON bash install.sh
-liggghts:
-	git submodule update --depth 1 --init contrib/vtk/src
+	HDF5=ON bash install.sh
+lapack: 
+	git submodule update --depth 1 --init contrib/lapack/src
+	LAPACK=ON bash install.sh		
+liggghts: vtk
 	git submodule update --depth 1 --init contrib/liggghts/src
-	LIGGGHTS=ON bash install.sh	
+	LIGGGHTS=ON bash install.sh		
+netcdf:
+	git submodule update --depth 1 --init contrib/netcdf/src
+	NETCDF=ON bash install.sh
+openblas:
+	git submodule update --depth 1 --init contrib/openblas/src
+	OPENBLAS=ON bash install.sh	
+peridigm: trilinos
+	git submodule update --depth 1 --init contrib/peridigm/src
+	PERIDIGM=ON bash install.sh	
+trilinos: lapack openblas netcdf hdf5 yaml
+	git submodule update --depth 1 --init contrib/trilinos/src
+	TRILINOS=ON bash install.sh	
+vtk:
+	git submodule update --depth 1 --init contrib/vtk/src
+	VTK=ON bash install.sh	
+yaml:
+	git submodule update --depth 1 --init contrib/yaml/src
+	YAML=ON bash install.sh	
+
 netdem:
 	git submodule update --depth 1 --init contrib/armadillo/src
 	git submodule update --depth 1 --init contrib/arpack/src
