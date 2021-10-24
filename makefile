@@ -49,4 +49,5 @@ netdem:
 	git submodule update --depth 1 --init contrib/netdem/src
 	NETDEM=ON bash install.sh	
 
-.PHONY: prepare
+.PHONY: prepare hdf5 lapack liggghts netcdf netdem openblas peridigm trilinos \
+	vtk yaml
