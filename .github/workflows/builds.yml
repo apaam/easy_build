@@ -20,7 +20,9 @@ jobs:
         echo "/usr/local/bin" >> $GITHUB_PATH
         echo "/usr/local/lib" >> $GITHUB_PATH
         echo "/usr/local/include" >> $GITHUB_PATH
-    - name: yaml
+    - name: Sync submoduli
+      run: make prepare    
+    - name: Install yaml
       run: make yaml
 
   build-ubuntu:
@@ -37,6 +39,8 @@ jobs:
         echo "/usr/local/bin" >> $GITHUB_PATH
         echo "/usr/local/lib" >> $GITHUB_PATH
         echo "/usr/local/include" >> $GITHUB_PATH
-    - name: yaml
+    - name: Sync submoduli
+      run: make prepare        
+    - name: Install yaml
       run: make yaml
   
