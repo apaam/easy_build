@@ -24,8 +24,17 @@ fi
 
 MPICC_COMPILER=$(which mpicc)
 MPICXX_COMPILER=$(which mpicxx)
-CMAKE_C_COMPILER=$(which gcc-11)
-CMAKE_CXX_COMPILER=$(which g++-11)
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  CMAKE_C_COMPILER=$(which gcc-10)
+  CMAKE_CXX_COMPILER=$(which g++-10)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  CMAKE_C_COMPILER=$(which gcc-11)
+  CMAKE_CXX_COMPILER=$(which g++-11)
+else
+  CMAKE_C_COMPILER=$(which gcc)
+  CMAKE_CXX_COMPILER=$(which g++)
+fi
 
 cmake ${CMAKE_GENERATOR_FLAG} \
   -DCMAKE_BUILD_TYPE=${TYPE} -DNUM_CORES=${NUM_CORES} \
