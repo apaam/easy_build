@@ -139,7 +139,7 @@ if(BUILD_PERIDIGM)
   endif()
 endif()
 
-# vtk
+# trilinos
 option(USE_INTERNAL_TRILINOS "use internal trilinos" ON)
 option(BUILD_TRILINOS "build trilinos" OFF)
 if(BUILD_TRILINOS)

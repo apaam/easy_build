@@ -17,8 +17,9 @@ if(USE_INTERNAL_TRILINOS)
   set(TRILINOS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/src)
   set(TRILINOS_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/build)
   set(TRILINOS_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/install)
-  set(TMP_C_FLAGS "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
-  set(TMP_CXX_FLAGS "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
+  set(TRILINOS_C_FLAGS "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
+  set(TRILINOS_CXX_FLAGS
+      "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
 
   if(NOT EXISTS "${TRILINOS_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule trilinos missing. To fix, try run: "
@@ -40,23 +41,25 @@ if(USE_INTERNAL_TRILINOS)
       -DCMAKE_INSTALL_PREFIX=${TRILINOS_INSTALL_DIR}
       -DCMAKE_CXX_COMPILER=${MPICXX_COMPILER}
       -DCMAKE_C_COMPILER=${MPICC_COMPILER}
-      -DCMAKE_CXX_FLAGS:STRING=${TMP_C_FLAGS} -DCMAKE_BUILD_TYPE:STRING=RELEASE
-      -DTrilinos_ENABLE_ALL_PACKAGES=OFF -DTrilinos_ENABLE_Teuchos=ON
-      -DTrilinos_ENABLE_Shards=ON -DTrilinos_ENABLE_Sacado=ON
-      -DTrilinos_ENABLE_Epetra=ON -DTrilinos_ENABLE_EpetraExt=ON
-      -DTrilinos_ENABLE_Ifpack=ON -DTrilinos_ENABLE_AztecOO=ON
-      -DTrilinos_ENABLE_Amesos=ON -DTrilinos_ENABLE_Anasazi=ON
-      -DTrilinos_ENABLE_Belos=ON -DTrilinos_ENABLE_ML=ON
-      -DTrilinos_ENABLE_Phalanx=ON -DTrilinos_ENABLE_Intrepid=ON
-      -DTrilinos_ENABLE_NOX=ON -DTrilinos_ENABLE_Stratimikos=ON
-      -DTrilinos_ENABLE_Thyra=ON -DTrilinos_ENABLE_Rythmos=ON
-      -DTrilinos_ENABLE_MOOCHO=ON -DTrilinos_ENABLE_TriKota=OFF
-      -DTrilinos_ENABLE_Stokhos=ON -DTrilinos_ENABLE_Zoltan=ON
-      -DTrilinos_ENABLE_Piro=ON -DTrilinos_ENABLE_Teko=ON
-      -DTrilinos_ENABLE_SEACASIoss=ON -DTrilinos_ENABLE_SEACAS=ON
-      -DTrilinos_ENABLE_SEACASBlot=OFF -DTrilinos_ENABLE_Pamgen=ON
-      -DTrilinos_ENABLE_EXAMPLES=OFF -DTrilinos_ENABLE_TESTS=OFF
-      -DTPL_ENABLE_HDF5=ON -DHDF5_INCLUDE_DIRS=${HDF5_INCLUDE_DIRS}
+      -DCMAKE_CXX_FLAGS:STRING=${TRILINOS_CXX_FLAGS}
+      -DCMAKE_C_FLAGS:STRING=${TRILINOS_C_FLAGS}
+      -DCMAKE_BUILD_TYPE:STRING=RELEASE -DTrilinos_ENABLE_ALL_PACKAGES=OFF
+      -DTrilinos_ENABLE_Teuchos=ON -DTrilinos_ENABLE_Shards=ON
+      -DTrilinos_ENABLE_Sacado=ON -DTrilinos_ENABLE_Epetra=ON
+      -DTrilinos_ENABLE_EpetraExt=ON -DTrilinos_ENABLE_Ifpack=ON
+      -DTrilinos_ENABLE_AztecOO=ON -DTrilinos_ENABLE_Amesos=ON
+      -DTrilinos_ENABLE_Anasazi=ON -DTrilinos_ENABLE_Belos=ON
+      -DTrilinos_ENABLE_ML=ON -DTrilinos_ENABLE_Phalanx=ON
+      -DTrilinos_ENABLE_Intrepid=ON -DTrilinos_ENABLE_NOX=ON
+      -DTrilinos_ENABLE_Stratimikos=ON -DTrilinos_ENABLE_Thyra=ON
+      -DTrilinos_ENABLE_Rythmos=ON -DTrilinos_ENABLE_MOOCHO=ON
+      -DTrilinos_ENABLE_TriKota=OFF -DTrilinos_ENABLE_Stokhos=ON
+      -DTrilinos_ENABLE_Zoltan=ON -DTrilinos_ENABLE_Piro=ON
+      -DTrilinos_ENABLE_Teko=ON -DTrilinos_ENABLE_SEACASIoss=ON
+      -DTrilinos_ENABLE_SEACAS=ON -DTrilinos_ENABLE_SEACASBlot=OFF
+      -DTrilinos_ENABLE_Pamgen=ON -DTrilinos_ENABLE_EXAMPLES=OFF
+      -DTrilinos_ENABLE_TESTS=OFF -DTPL_ENABLE_HDF5=ON
+      -DHDF5_INCLUDE_DIRS=${HDF5_INCLUDE_DIRS}
       -DHDF5_LIBRARY_DIRS=${HDF5_LIBRARY_DIRS} -DTPL_ENABLE_Netcdf=ON
       -DTPL_Netcdf_Enables_Netcdf4=ON
       -DNetcdf_INCLUDE_DIRS=${NETCDF_INCLUDE_DIRS}

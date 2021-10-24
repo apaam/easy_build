@@ -36,14 +36,17 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   CMAKE_C_COMPILER=$(which gcc-10)
   CMAKE_CXX_COMPILER=$(which g++-10)
   CMAKE_Fortran_COMPILER=$(which gfortran-10)
+  GFORTRAN_LIBRARY_DIR=/usr/lib
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   CMAKE_C_COMPILER=$(which gcc-11)
   CMAKE_CXX_COMPILER=$(which g++-11)
   CMAKE_Fortran_COMPILER=$(which gfortran-11)
+  GFORTRAN_LIBRARY_DIR=/usr/local/Cellar/gcc/11.2.0/lib/gcc/11
 else
   CMAKE_C_COMPILER=$(which gcc)
   CMAKE_CXX_COMPILER=$(which g++)
   CMAKE_Fortran_COMPILER=$(which gfortran)
+  GFORTRAN_LIBRARY_DIR=/usr/lib
 fi
 
 cmake ${CMAKE_GENERATOR_FLAG} \
@@ -62,6 +65,7 @@ cmake ${CMAKE_GENERATOR_FLAG} \
   -DCMAKE_GENERATOR_FLAG=${CMAKE_GENERATOR_FLAG} -DGENERATOR=${GENERATOR} \
   -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} \
   -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} \
+  -DGFORTRAN_LIBRARY_DIR=${GFORTRAN_LIBRARY_DIR} \
   -DMPICXX_COMPILER=${MPICXX_COMPILER} -DMPICC_COMPILER=${MPICC_COMPILER} \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 
