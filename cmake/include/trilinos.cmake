@@ -17,7 +17,7 @@ if(USE_INTERNAL_TRILINOS)
   set(TRILINOS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/src)
   set(TRILINOS_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/build)
   set(TRILINOS_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/trilinos/install)
-  set(TRILINOS_C_FLAGS "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
+  set(TRILINOS_C_FLAGS "-O2 -pedantic -ftrapv -Wall -Wno-long-long")
   set(TRILINOS_CXX_FLAGS
       "-O2 -std=c++14 -pedantic -ftrapv -Wall -Wno-long-long")
 
