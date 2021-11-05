@@ -1,0 +1,21 @@
+EXE        =
+LIB        = .a
+OBJ        = .o
+
+MAKE	     = make
+AR         = ar
+ARFLAGS	   = -ruv
+CAT        = cat
+CCS        = @MPI_C_COMPILER@
+CCP        = @MPI_C_COMPILER@
+CCD        = @MPI_C_COMPILER@
+CFLAGS     = @scotch_cflags@
+CLIBFLAGS	 =
+LDFLAGS    = @scotch_ldflags@
+CP         = cp
+LEX        = flex -Pscotchyy -olex.yy.c
+LN         = ln
+MKDIR      = mkdir
+MV         = mv
+RANLIB     = ranlib
+YACC       = bison -pscotchyy -y -b y

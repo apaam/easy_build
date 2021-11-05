@@ -1,6 +1,9 @@
 prepare:
 	git submodule sync
 
+flex:
+	git submodule update --depth 1 --init contrib/flex/src
+	FLEX=ON bash install.sh
 hdf5:
 	git submodule update --depth 1 --init contrib/hdf5/src
 	HDF5=ON bash install.sh
@@ -16,9 +19,15 @@ netcdf:
 openblas:
 	git submodule update --depth 1 --init contrib/openblas/src
 	OPENBLAS=ON bash install.sh	
+openfoam: flex scotch
+	git submodule update --depth 1 --init contrib/openfoam/OpenFOAM-dev
+	OPENFOAM=ON bash install.sh		
 peridigm: trilinos
 	git submodule update --depth 1 --init contrib/peridigm/src
 	PERIDIGM=ON bash install.sh	
+scotch:
+	git submodule update --depth 1 --init contrib/scotch/src
+	SCOTCH=ON bash install.sh	
 trilinos: lapack openblas netcdf hdf5 yaml
 	git submodule update --depth 1 --init contrib/trilinos/src
 	TRILINOS=ON bash install.sh	

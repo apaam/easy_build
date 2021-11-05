@@ -62,6 +62,28 @@ option(USE_INTERNAL_GMP "use internal gmp, usually shipped with gcc" OFF)
 # configuration
 include(ExternalProject)
 
+# scotch
+option(USE_INTERNAL_SCOTCH "use internal scotch" ON)
+option(BUILD_SCOTCH "build scotch" OFF)
+if(BUILD_SCOTCH)
+  include(cmake/include/scotch.cmake)
+
+  if(USE_INTERNAL_SCOTCH)
+    add_dependencies(${PROJECT_NAME} SCOTCH)
+  endif()
+endif()
+
+# flex
+option(USE_INTERNAL_FLEX "use internal flex" ON)
+option(BUILD_FLEX "build flex" OFF)
+if(BUILD_FLEX)
+  include(cmake/include/flex.cmake)
+
+  if(USE_INTERNAL_FLEX)
+    add_dependencies(${PROJECT_NAME} FLEX)
+  endif()
+endif()
+
 # hdf5
 option(USE_INTERNAL_HDF5 "use internal hdf5" ON)
 option(BUILD_HDF5 "build hdf5" OFF)
@@ -125,6 +147,17 @@ if(BUILD_OPENBLAS)
 
   if(USE_INTERNAL_OPENBLAS)
     add_dependencies(${PROJECT_NAME} OPENBLAS)
+  endif()
+endif()
+
+# openfoam
+option(USE_INTERNAL_OPENFOAM "use internal openfoam" ON)
+option(BUILD_OPENFOAM "build openfoam" OFF)
+if(BUILD_OPENFOAM)
+  include(cmake/include/openfoam.cmake)
+
+  if(USE_INTERNAL_OPENFOAM)
+    add_dependencies(${PROJECT_NAME} OPENFOAM)
   endif()
 endif()
 
