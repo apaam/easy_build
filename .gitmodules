@@ -79,3 +79,6 @@
 [submodule "contrib/scotch/src"]
 	path = contrib/scotch/src
 	url = https://gitlab.inria.fr/scotch/scotch.git
+[submodule "contrib/mfem/src"]
+	path = contrib/mfem/src
+	url = https://github.com/mfem/mfem.git
