@@ -9,7 +9,10 @@ arpack:
 	ARPACK=ON bash install.sh	
 cereal:
 	git submodule update --depth 1 --init contrib/cereal/src
-	CERAL=ON bash install.sh	
+	CEREAL=ON bash install.sh	
+cgal:
+	git submodule update --depth 1 --init contrib/cgal/src
+	CGAL=ON bash install.sh		
 cork:
 	git submodule update --depth 1 --init contrib/cork/src
 	CORK=ON bash install.sh	
@@ -28,7 +31,7 @@ gtest:
 hdf5:
 	git submodule update --depth 1 --init contrib/hdf5/src
 	HDF5=ON bash install.sh
-igl:
+igl: cgal
 	git submodule update --depth 1 --init contrib/igl/src
 	IGL=ON bash install.sh	
 json:
@@ -43,7 +46,7 @@ liggghts: vtk
 mfem:
 	git submodule update --depth 1 --init contrib/mfem/src
 	MFEM=ON bash install.sh
-mlpack:
+mlpack: armadillo ensmallen cereal
 	git submodule update --depth 1 --init contrib/mlpack/src
 	MLPACK=ON bash install.sh
 netcdf:
@@ -74,7 +77,7 @@ yaml:
 	git submodule update --depth 1 --init contrib/yaml/src
 	YAML=ON bash install.sh	
 
-netdem: mlpack mfem
+netdem: mlpack mfem cork igl gtest eigen json openmp
 	NETDEM=ON bash install.sh	
 
 .PHONY: prepare hdf5 lapack liggghts netcdf netdem openblas peridigm trilinos \
