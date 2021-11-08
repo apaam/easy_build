@@ -7,24 +7,19 @@ Welcome to EasyBuild!
 
  0. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.
 
-   - For **MacOS**: use ``brew install``, such as
-
-       ```
-       brew install gcc autoconf automake cmake mpi boost
-       ```
-
-   - For **Ubuntu**: use ``apt-get install``, such as
-
-       ```
-       sudo apt install build-essential bison
-       sudo apt-get install -y autoconf-archive automake cmake texinfo
-       sudo apt-get install openmpi-bin libopenmpi-dev libboost-all-dev
-       ```
+    ```
+    # For MacOS: use brew install, such as
+    brew install gcc autoconf automake cmake mpi boost
+        
+    # For Ubuntu: use apt-get install, such as
+    sudo apt install build-essential
+    sudo apt-get install -y autoconf-archive automake cmake texinfo
+    sudo apt-get install openmpi-bin libopenmpi-dev libboost-all-dev
+    ```
 
  1. Configure, build and install:
 
     ```
-    make prepare
     make [package]
     ```
 
@@ -35,6 +30,7 @@ Welcome to EasyBuild!
     ```    
     git submodule add --depth 1 [package_source_url] contrib/[package]/src
     ```
+
 2. Insert an entry of the package in file *makefile*, following the format of existing packages.
 
 3. Insert an entry of the package in file *install.sh*. Two modifications will be needed.
@@ -74,7 +70,7 @@ Supported packages are added based on needs. If you need packages that are not o
 
 [liggghts](https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git): an open source discrete element method particle simulation software that is improved from LAMMPS for general granular and granular heat transfer simulations.
 
-[netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics.
+[netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics. [to be open-source soon]
 
 [openfoam](https://github.com/OpenFOAM/OpenFOAM-dev): a free, open source computational fluid dynamics (CFD) software package released by the OpenFOAM Foundation.
 
