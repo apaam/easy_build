@@ -5,7 +5,7 @@ Welcome to EasyBuild!
 
 ### 1. To install a package
 
- 0. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.
+0. Prerequisites: gcc, autoconf, automake, cmake, mpi, boost.
 
     ```
     # For MacOS: use brew install, such as
@@ -17,11 +17,13 @@ Welcome to EasyBuild!
     sudo apt-get install openmpi-bin libopenmpi-dev libboost-all-dev
     ```
 
- 1. Configure, build and install:
+1. Configure, build and install:
 
     ```
     make [package]
     ```
+
+2. The installation can be found in ``contrib/[package]/install``. For some packages without installation step, the binaries might be founed in ``contrib/[package]/build``.
 
 ### 2. To add a new package to the project
 
