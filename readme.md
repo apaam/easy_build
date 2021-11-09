@@ -70,7 +70,7 @@ Supported packages are added based on needs. If you need packages that are not o
 
 [deal.II](https://github.com/dealii/dealii): a C++ program library targeted at the computational solution of partial differential equations using adaptive finite elements. 
 
-[liggghts](https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git): an open source discrete element method particle simulation software that is improved from LAMMPS for general granular and granular heat transfer simulations.
+[liggghts](https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git): an open source discrete element method particle simulation software that is improved from LAMMPS for general granular and granular heat transfer simulations. This project used a modified [version](https://github.com/schrummy14/LIGGGHTS_Flexible_Fibers.git) that includes granular bond formulations. 
 
 [netdem](https://github.com/net-dem/netdem.git): a neural network machine learning enabled DEM framework for computational particle mechanics. [to be open-source soon]
 

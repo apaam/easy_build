@@ -63,7 +63,7 @@
 	url = https://github.com/llvm-mirror/openmp.git
 [submodule "contrib/liggghts/src"]
 	path = contrib/liggghts/src
-	url = https://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git
+	url = https://github.com/schrummy14/LIGGGHTS_Flexible_Fibers.git
 [submodule "contrib/vtk/src"]
 	path = contrib/vtk/src
 	url = https://github.com/Kitware/VTK.git
