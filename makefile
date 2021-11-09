@@ -16,6 +16,9 @@ cgal:
 cork:
 	git submodule update --depth 1 --init contrib/cork/src
 	CORK=ON bash install.sh	
+dealii: lapack trilinos
+	git submodule update --depth 1 --init contrib/dealii/src
+	DEALII=ON bash install.sh
 eigen:
 	git submodule update --depth 1 --init contrib/eigen/src
 	EIGEN=ON bash install.sh		

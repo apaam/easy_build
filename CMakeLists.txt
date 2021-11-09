@@ -62,14 +62,14 @@ option(USE_INTERNAL_GMP "use internal gmp, usually shipped with gcc" OFF)
 # configuration
 include(ExternalProject)
 
-# scotch
-option(USE_INTERNAL_SCOTCH "use internal scotch" ON)
-option(BUILD_SCOTCH "build scotch" OFF)
-if(BUILD_SCOTCH)
-  include(cmake/include/scotch.cmake)
+# dealii
+option(USE_INTERNAL_DEALII "use internal dealii" ON)
+option(BUILD_DEALII "build dealii" OFF)
+if(BUILD_DEALII)
+  include(cmake/include/dealii.cmake)
 
-  if(USE_INTERNAL_SCOTCH)
-    add_dependencies(${PROJECT_NAME} SCOTCH)
+  if(USE_INTERNAL_DEALII)
+    add_dependencies(${PROJECT_NAME} DEALII)
   endif()
 endif()
 
@@ -169,6 +169,17 @@ if(BUILD_PERIDIGM)
 
   if(USE_INTERNAL_PERIDIGM)
     add_dependencies(${PROJECT_NAME} PERIDIGM)
+  endif()
+endif()
+
+# scotch
+option(USE_INTERNAL_SCOTCH "use internal scotch" ON)
+option(BUILD_SCOTCH "build scotch" OFF)
+if(BUILD_SCOTCH)
+  include(cmake/include/scotch.cmake)
+
+  if(USE_INTERNAL_SCOTCH)
+    add_dependencies(${PROJECT_NAME} SCOTCH)
   endif()
 endif()
 

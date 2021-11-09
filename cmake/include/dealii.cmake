@@ -1,0 +1,65 @@
+message(STATUS "Configuring dealii ...")
+
+if(DEALII_INCLUDED)
+  return()
+endif()
+set(DEALII_INCLUDED TRUE)
+
+include(${CMAKE_SOURCE_DIR}/cmake/include/lapack.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/trilinos.cmake)
+
+if(USE_INTERNAL_DEALII)
+  set(DEALII_EP_ROOT ${CONTRIB_ROOT_DIR}/dealii/ep)
+  set(DEALII_SOURCE_DIR ${CONTRIB_ROOT_DIR}/dealii/src)
+  set(DEALII_BUILD_DIR ${CONTRIB_ROOT_DIR}/dealii/build)
+  set(DEALII_INSTALL_DIR ${CONTRIB_ROOT_DIR}/dealii/install)
+
+  if(NOT EXISTS "${DEALII_SOURCE_DIR}/CMakeLists.txt")
+    message(SEND_ERROR "Submodule dealii missing. To fix, try run: "
+                       "git submodule update --init --recursive")
+  endif()
+
+  ExternalProject_Add(
+    DEALII
+    PREFIX ${DEALII_EP_ROOT}
+    SOURCE_DIR ${DEALII_SOURCE_DIR}
+    BINARY_DIR ${DEALII_BUILD_DIR}
+    INSTALL_DIR ${DEALII_INSTALL_DIR}
+    LOG_CONFIGURE TRUE
+    LOG_BUILD TRUE
+    LOG_OUTPUT_ON_FAILURE TRUE
+    CONFIGURE_COMMAND
+      cmake ${CMAKE_GENERATOR_FLAG} -DCMAKE_BUILD_TYPE=Release
+      -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${DEALII_INSTALL_DIR}
+      -DDEAL_II_WITH_PETSC=ON -DDEAL_II_PETSC_WITH_COMPLEX=OFF
+      -DLAPACK_INCLUDE_DIRS=${LAPACK_INCLUDE_DIRS}
+      -DTRILINOS_INCLUDE_DIRS=${TRILINOS_INCLUDE_DIRS}
+      -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} ${DEALII_SOURCE_DIR}
+    BUILD_COMMAND ${GENERATOR} -j2
+    INSTALL_COMMAND ${GENERATOR} -j2 install)
+
+  if(USE_INTERNAL_LAPACK)
+    add_dependencies(DEALII LAPACK)
+  endif(USE_INTERNAL_LAPACK)
+
+  if(USE_INTERNAL_TRILINOS)
+    add_dependencies(DEALII TRILINOS)
+  endif(USE_INTERNAL_TRILINOS)
+
+  set(DEALII_INCLUDE_DIRS ${DEALII_INSTALL_DIR}/include)
+  set(DEALII_LIBRARIES libdeal_II.a)
+  set(DEALII_LIBRARY_DIRS ${DEALII_INSTALL_DIR}/lib)
+else()
+  find_package(DEALII)
+  if(NOT DEALII_FOUND)
+    message(SEND_ERROR "Can't find system dealii package.")
+  endif()
+endif()
+
+set(DEALII_LIBRARIES ${DEALII_LIBRARIES})
+include_directories(AFTER ${DEALII_INCLUDE_DIRS})
+link_directories(AFTER ${DEALII_LIBRARY_DIRS})
+message(STATUS "Using DEALII_INCLUDE_DIRS=${DEALII_INCLUDE_DIRS}")
+message(STATUS "Using DEALII_LIBRARIES=${DEALII_LIBRARIES}")
+message(STATUS "Using DEALII_LIBRARY_DIRS=${DEALII_LIBRARY_DIRS}")

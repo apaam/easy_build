@@ -82,3 +82,6 @@
 [submodule "contrib/mfem/src"]
 	path = contrib/mfem/src
 	url = https://github.com/mfem/mfem.git
+[submodule "contrib/dealii/src"]
+	path = contrib/dealii/src
+	url = https://github.com/dealii/dealii
