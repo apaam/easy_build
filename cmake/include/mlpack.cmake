@@ -23,7 +23,7 @@ if(USE_INTERNAL_MLPACK)
 
   if(NOT EXISTS "${MLPACK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule mlpack missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

@@ -15,7 +15,7 @@ if(USE_INTERNAL_TBB)
 
   if(NOT EXISTS "${TBB_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule tbb missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # cannot use gcc as compiler, do not know why. Also, cannot build static lib.

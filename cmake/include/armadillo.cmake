@@ -17,7 +17,7 @@ if(USE_INTERNAL_ARMADILLO)
 
   if(NOT EXISTS "${ARMADILLO_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule armadillo missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

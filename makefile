@@ -16,7 +16,7 @@ cgal:
 cork:
 	git submodule update --depth 1 --init contrib/cork/src
 	CORK=ON bash install.sh	
-dealii: lapack trilinos
+dealii: lapack trilinos petsc
 	git submodule update --depth 1 --init contrib/dealii/src
 	DEALII=ON bash install.sh
 eigen:
@@ -67,6 +67,9 @@ openmp:
 peridigm: trilinos
 	git submodule update --depth 1 --init contrib/peridigm/src
 	PERIDIGM=ON bash install.sh	
+petsc: petsc
+	git submodule update --depth 1 --init contrib/petsc/src
+	PETSC=ON bash install.sh		
 scotch:
 	git submodule update --depth 1 --init contrib/scotch/src
 	SCOTCH=ON bash install.sh	

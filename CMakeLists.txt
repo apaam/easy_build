@@ -172,6 +172,17 @@ if(BUILD_PERIDIGM)
   endif()
 endif()
 
+# petsc
+option(USE_INTERNAL_PETSC "use internal petsc" ON)
+option(BUILD_PETSC "build petsc" OFF)
+if(BUILD_PETSC)
+  include(cmake/include/petsc.cmake)
+
+  if(USE_INTERNAL_PETSC)
+    add_dependencies(${PROJECT_NAME} PETSC)
+  endif()
+endif()
+
 # scotch
 option(USE_INTERNAL_SCOTCH "use internal scotch" ON)
 option(BUILD_SCOTCH "build scotch" OFF)

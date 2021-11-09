@@ -18,7 +18,7 @@ if(USE_INTERNAL_IGL)
 
   if(NOT EXISTS "${IGL_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule igl missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # use igl as heads only package for now

@@ -33,9 +33,9 @@ Welcome to EasyBuild!
     git submodule add --depth 1 [package_source_url] contrib/[package]/src
     ```
 
-2. Insert an entry of the package in file *makefile*, following the format of existing packages.
+2. Insert an entry of the package in file ``makefile``, following the format of existing packages.
 
-3. Insert an entry of the package in file *install.sh*. Two modifications will be needed.
+3. Insert an entry of the package in file ``install.sh``. Two modifications will be needed.
 
     ```
     PACKAGE=${PACKAGE:-OFF}         
@@ -44,7 +44,7 @@ Welcome to EasyBuild!
     -DBUILD_PACKAGE=${PACKAGE}     
     ```
 
-4. Modify *CMakeLists.txt* by adding configuring options for the package.
+4. Modify ``CMakeLists.txt`` by adding configuring options for the package.
 
     ```
     option(USE_INTERNAL_[PACKAGE] "use internal [package]" ON)
@@ -58,9 +58,9 @@ Welcome to EasyBuild!
     endif()
     ```
 
-5. Create file *[package].cmake* inside *cmake/include*, and implement the configure, build and installation procedures. (one can make a copy of the cmake file of existing packages and make modifications on that). This step is the most complex one, and one should refer to the installation procedure of a specific package.
+5. Create file ``[package].cmake`` inside ``cmake/include``, and implement the configure, build and installation procedures. (one can make a copy of the cmake file of existing packages and make modifications on that). This step is the most complex one, and one should refer to the installation procedure of a specific package.
 
-6. Add a description of the package in *readme.md*.
+6. Add a description of the package in ``readme.md``.
 
 Note: a dependency of the existing packages can be a standalone package as well. One can make them exiplicit by following the aformentioned procedures. 
 

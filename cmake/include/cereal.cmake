@@ -9,7 +9,7 @@ if(USE_INTERNAL_CEREAL)
   if(NOT EXISTS
      "${CMAKE_SOURCE_DIR}/contrib/cereal/src/include/cereal/cereal.hpp")
     message(SEND_ERROR "Submodule cereal missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # cereal is a head only package, so only include dir is needed.

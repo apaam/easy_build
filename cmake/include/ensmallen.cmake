@@ -15,7 +15,7 @@ if(USE_INTERNAL_ENSMALLEN)
 
   if(NOT EXISTS "${ENSMALLEN_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule ensmallen missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # use ensmallen as heads only package for now

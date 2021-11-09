@@ -7,6 +7,7 @@ set(DEALII_INCLUDED TRUE)
 
 include(${CMAKE_SOURCE_DIR}/cmake/include/lapack.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/trilinos.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/petsc.cmake)
 
 if(USE_INTERNAL_DEALII)
   set(DEALII_EP_ROOT ${CONTRIB_ROOT_DIR}/dealii/ep)
@@ -16,7 +17,7 @@ if(USE_INTERNAL_DEALII)
 
   if(NOT EXISTS "${DEALII_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule dealii missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(
@@ -30,10 +31,10 @@ if(USE_INTERNAL_DEALII)
     LOG_OUTPUT_ON_FAILURE TRUE
     CONFIGURE_COMMAND
       cmake ${CMAKE_GENERATOR_FLAG} -DCMAKE_BUILD_TYPE=Release
-      -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=${DEALII_INSTALL_DIR}
-      -DDEAL_II_WITH_PETSC=ON -DDEAL_II_PETSC_WITH_COMPLEX=OFF
-      -DLAPACK_INCLUDE_DIRS=${LAPACK_INCLUDE_DIRS}
-      -DTRILINOS_INCLUDE_DIRS=${TRILINOS_INCLUDE_DIRS}
+      -DDEAL_II_WITH_MPI=OFF -DBUILD_SHARED_LIBS=OFF
+      -DCMAKE_INSTALL_PREFIX=${DEALII_INSTALL_DIR} -DDEAL_II_WITH_PETSC=ON
+      -DDEAL_II_PETSC_WITH_COMPLEX=OFF -DPETSC_DIR=${PETSC_INSTALL_DIR}
+      -DLAPACK_DIR=${LAPACK_INSTALL_DIR} -DTRILINOS_DIR=${TRILINOS_INSTALL_DIR}
       -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
       -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} ${DEALII_SOURCE_DIR}
     BUILD_COMMAND ${GENERATOR} -j2

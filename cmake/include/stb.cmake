@@ -8,7 +8,7 @@ set(STB_INCLUDED TRUE)
 if(USE_INTERNAL_STB)
   if(NOT EXISTS "${CMAKE_SOURCE_DIR}/contrib/stb/src/stb_image.h")
     message(SEND_ERROR "Submodule stb missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # stb is a head only package, so only include dir is needed.

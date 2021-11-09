@@ -23,7 +23,7 @@ if(USE_INTERNAL_PERIDIGM)
 
   if(NOT EXISTS "${PERIDIGM_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule peridigm missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

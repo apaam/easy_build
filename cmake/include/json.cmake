@@ -9,7 +9,7 @@ if(USE_INTERNAL_JSON)
   if(NOT EXISTS
      "${CMAKE_SOURCE_DIR}/contrib/json/src/include/nlohmann/json.hpp")
     message(SEND_ERROR "Submodule json missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # json is a head only package, so only include dir is needed.

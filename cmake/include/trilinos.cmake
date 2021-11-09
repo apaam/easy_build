@@ -23,7 +23,7 @@ if(USE_INTERNAL_TRILINOS)
 
   if(NOT EXISTS "${TRILINOS_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule trilinos missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

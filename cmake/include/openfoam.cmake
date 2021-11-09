@@ -13,7 +13,7 @@ if(USE_INTERNAL_OPENFOAM)
 
   if(NOT EXISTS "${OPENFOAM_SOURCE_DIR}/Allwmake")
     message(SEND_ERROR "Submodule openfoam missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   configure_file(${CMAKE_SOURCE_DIR}/cmake/config/openfoam_install.sh

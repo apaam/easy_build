@@ -16,7 +16,7 @@ if(USE_INTERNAL_CORK)
 
   if(NOT EXISTS "${CORK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule cork missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

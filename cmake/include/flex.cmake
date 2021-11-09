@@ -13,7 +13,7 @@ if(USE_INTERNAL_FLEX)
 
   if(NOT EXISTS "${FLEX_SOURCE_DIR}/autogen.sh")
     message(SEND_ERROR "Submodule flex missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # to be revised

@@ -85,3 +85,6 @@
 [submodule "contrib/dealii/src"]
 	path = contrib/dealii/src
 	url = https://github.com/dealii/dealii
+[submodule "contrib/petsc/src"]
+	path = contrib/petsc/src
+	url = https://gitlab.com/petsc/petsc.git

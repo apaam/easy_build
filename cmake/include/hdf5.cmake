@@ -13,7 +13,7 @@ if(USE_INTERNAL_HDF5)
 
   if(NOT EXISTS "${HDF5_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule hdf5 missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

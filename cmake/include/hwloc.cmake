@@ -13,7 +13,7 @@ if(USE_INTERNAL_HWLOC)
 
   if(NOT EXISTS "${HWLOC_SOURCE_DIR}/autogen.sh")
     message(SEND_ERROR "Submodule hwloc missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # cannot use gcc as compiler, do not know why

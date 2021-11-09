@@ -8,7 +8,7 @@ set(EIGEN_INCLUDED TRUE)
 if(USE_INTERNAL_EIGEN)
   if(NOT EXISTS "${CMAKE_SOURCE_DIR}/contrib/eigen/src/Eigen/Eigen")
     message(SEND_ERROR "Submodule eigen missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # json is a head only package, so only include dir is needed.

@@ -13,7 +13,7 @@ if(USE_INTERNAL_MFEM)
 
   if(NOT EXISTS "${MFEM_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule mfem missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

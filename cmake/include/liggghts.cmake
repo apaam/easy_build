@@ -17,7 +17,7 @@ if(USE_INTERNAL_LIGGGHTS)
 
   if(NOT EXISTS "${LIGGGHTS_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule liggghts missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

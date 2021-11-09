@@ -13,7 +13,7 @@ if(USE_INTERNAL_SCOTCH)
 
   if(NOT EXISTS "${SCOTCH_SOURCE_DIR}/src/Makefile")
     message(SEND_ERROR "Submodule scotch missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   # ref: https://github.com/scivision/scotch-cmake/blob/main/cmake/scotch.cmake

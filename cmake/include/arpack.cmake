@@ -16,7 +16,7 @@ if(USE_INTERNAL_ARPACK)
 
   if(NOT EXISTS "${ARPACK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule arpack missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(

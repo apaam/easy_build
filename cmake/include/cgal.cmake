@@ -18,7 +18,7 @@ if(USE_INTERNAL_CGAL)
 
   if(NOT EXISTS "${CGAL_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule cgal missing. To fix, try run: "
-                       "git submodule update --init --recursive")
+                       "git submodule update --init")
   endif()
 
   ExternalProject_Add(
