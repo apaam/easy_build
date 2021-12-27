@@ -84,7 +84,15 @@ yaml:
 	YAML=ON bash install.sh	
 
 netdem: mlpack mfem cork igl gtest eigen json openmp
+	git submodule update --depth 1 --init contrib/netdem/src
 	NETDEM=ON bash install.sh	
+
+clean:
+	rm -rvf build
+realclean:
+	rm -rvf build	
+	rm -rvf contrib
+	git checkout contrib
 
 .PHONY: prepare hdf5 lapack liggghts netcdf netdem openblas peridigm trilinos \
 	vtk yaml
