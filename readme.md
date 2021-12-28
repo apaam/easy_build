@@ -79,3 +79,8 @@ Supported packages are added based on needs. If you need packages that are not o
 [openfoam](https://github.com/OpenFOAM/OpenFOAM-dev): a free, open source computational fluid dynamics (CFD) software package released by the OpenFOAM Foundation.
 
 [peridigm](https://github.com/peridigm/peridigm.git): an open-source computational peridynamics code developed, originally at Sandia National Laboratories and open-sourced in 2011, for massively-parallel multi-physics simulations.
+
+### 5. Tips
+
+1. Once a package is installed, the headers, library and executable binary could be found in ``contrib/[package]/install``.
+2. For openfoam, one might need to add ``source $path_easy_build/contrib/openfoam/OpenFOAM-dev/etc/bashrc`` to the ``.bashrc``, where ``$path_easy_build`` is the root directory of the easy_build project. 
