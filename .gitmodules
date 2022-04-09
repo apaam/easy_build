@@ -73,9 +73,6 @@
 [submodule "contrib/flex/src"]
 	path = contrib/flex/src
 	url = https://github.com/westes/flex.git
-[submodule "contrib/openfoam/src"]
-	path = contrib/openfoam/OpenFOAM-dev
-	url = https://github.com/OpenFOAM/OpenFOAM-dev.git
 [submodule "contrib/scotch/src"]
 	path = contrib/scotch/src
 	url = https://gitlab.inria.fr/scotch/scotch.git
