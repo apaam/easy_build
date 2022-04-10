@@ -85,3 +85,6 @@
 [submodule "contrib/petsc/src"]
 	path = contrib/petsc/src
 	url = https://gitlab.com/petsc/petsc.git
+[submodule "contrib/openfoam/OpenFOAM-dev"]
+	path = contrib/openfoam/OpenFOAM-dev
+	url = https://github.com/OpenFOAM/OpenFOAM-dev.git
