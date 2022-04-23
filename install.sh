@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir -p build && cd build
-
 TYPE=${TYPE:-Release}
 NUM_CORES=12
 
@@ -53,6 +51,8 @@ else
   CMAKE_Fortran_COMPILER=$(which gfortran)
   GFORTRAN_LIBRARY_DIR=/usr/lib
 fi
+
+mkdir -p build && cd build
 
 cmake ${CMAKE_GENERATOR_FLAG} \
   -DCMAKE_BUILD_TYPE=${TYPE} -DNUM_CORES=${NUM_CORES} \
