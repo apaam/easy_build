@@ -52,7 +52,7 @@ mfem:
 mlpack: armadillo ensmallen cereal
 	git submodule update --depth 1 --init contrib/mlpack/src
 	MLPACK=ON bash install.sh
-netcdf:
+netcdf: hdf5
 	git submodule update --depth 1 --init contrib/netcdf/src
 	NETCDF=ON bash install.sh
 openblas:
