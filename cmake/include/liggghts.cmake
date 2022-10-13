@@ -12,8 +12,8 @@ if(USE_INTERNAL_LIGGGHTS)
   set(LIGGGHTS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/liggghts/src/src)
   set(LIGGGHTS_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/liggghts/build)
   set(LIGGGHTS_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/liggghts/install)
-  set(TMP_C_FLAGS "-fPIC -I${VTK_INCLUDE_DIRS}")
-  set(TMP_CXX_FLAGS "-fPIC -I${VTK_INCLUDE_DIRS}")
+  set(TMP_C_FLAGS "-fPIC -I${VTK_INCLUDE_DIRS} -L/opt/homebrew/lib")
+  set(TMP_CXX_FLAGS "-fPIC -I${VTK_INCLUDE_DIRS} -L/opt/homebrew/lib")
 
   if(NOT EXISTS "${LIGGGHTS_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule liggghts missing. To fix, try run: "
