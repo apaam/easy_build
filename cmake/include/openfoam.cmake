@@ -6,10 +6,10 @@ endif()
 set(OPENFOAM_INCLUDED TRUE)
 
 if(USE_INTERNAL_OPENFOAM)
-  set(OPENFOAM_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/openfoam/ep)
-  set(OPENFOAM_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/openfoam/OpenFOAM-dev)
-  set(OPENFOAM_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/openfoam/OpenFOAM-dev)
-  set(OPENFOAM_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/openfoam/install)
+  set(OPENFOAM_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/openfoam/ep)
+  set(OPENFOAM_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/openfoam/OpenFOAM-dev)
+  set(OPENFOAM_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/openfoam/OpenFOAM-dev)
+  set(OPENFOAM_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/openfoam/install)
 
   if(NOT EXISTS "${OPENFOAM_SOURCE_DIR}/Allwmake")
     message(SEND_ERROR "Submodule openfoam missing. To fix, try run: "

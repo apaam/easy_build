@@ -6,10 +6,10 @@ endif()
 set(GLFW_INCLUDED TRUE)
 
 if(USE_INTERNAL_GLFW)
-  set(GLFW_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/glfw/ep)
-  set(GLFW_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/glfw/src)
-  set(GLFW_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/glfw/build)
-  set(GLFW_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/glfw/install)
+  set(GLFW_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/glfw/ep)
+  set(GLFW_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/glfw/src)
+  set(GLFW_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/glfw/build)
+  set(GLFW_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/glfw/install)
 
   if(NOT EXISTS "${GLFW_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule glfw missing. To fix, try run: "

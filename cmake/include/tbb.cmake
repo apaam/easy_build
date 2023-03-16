@@ -8,10 +8,10 @@ set(TBB_INCLUDED TRUE)
 include(${CMAKE_SOURCE_DIR}/cmake/include/hwloc.cmake)
 
 if(USE_INTERNAL_TBB)
-  set(TBB_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/tbb/ep)
-  set(TBB_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/tbb/src)
-  set(TBB_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/tbb/build)
-  set(TBB_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/tbb/install)
+  set(TBB_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/tbb/ep)
+  set(TBB_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/tbb/src)
+  set(TBB_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/tbb/build)
+  set(TBB_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/tbb/install)
 
   if(NOT EXISTS "${TBB_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule tbb missing. To fix, try run: "

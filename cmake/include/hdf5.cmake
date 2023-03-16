@@ -6,10 +6,10 @@ endif()
 set(HDF5_INCLUDED TRUE)
 
 if(USE_INTERNAL_HDF5)
-  set(HDF5_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/hdf5/ep)
-  set(HDF5_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/hdf5/src)
-  set(HDF5_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/hdf5/build)
-  set(HDF5_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/hdf5/install)
+  set(HDF5_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/hdf5/ep)
+  set(HDF5_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/hdf5/src)
+  set(HDF5_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/hdf5/build)
+  set(HDF5_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/hdf5/install)
 
   if(NOT EXISTS "${HDF5_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule hdf5 missing. To fix, try run: "

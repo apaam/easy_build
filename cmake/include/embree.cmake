@@ -9,10 +9,10 @@ include(${CMAKE_SOURCE_DIR}/cmake/include/tbb.cmake)
 # include(${CMAKE_SOURCE_DIR}/cmake/include/glfw.cmake)
 
 if(USE_INTERNAL_EMBREE)
-  set(EMBREE_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/embree/ep)
-  set(EMBREE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/embree/src)
-  set(EMBREE_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/embree/build)
-  set(EMBREE_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/embree/install)
+  set(EMBREE_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/embree/ep)
+  set(EMBREE_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/embree/src)
+  set(EMBREE_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/embree/build)
+  set(EMBREE_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/embree/install)
 
   if(NOT EXISTS "${EMBREE_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule embree missing. To fix, try run: "

@@ -6,10 +6,10 @@ endif()
 set(FLEX_INCLUDED TRUE)
 
 if(USE_INTERNAL_FLEX)
-  set(FLEX_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/flex/ep)
-  set(FLEX_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/flex/src)
-  set(FLEX_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/flex/build)
-  set(FLEX_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/flex/install)
+  set(FLEX_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/flex/ep)
+  set(FLEX_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/flex/src)
+  set(FLEX_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/flex/build)
+  set(FLEX_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/flex/install)
 
   if(NOT EXISTS "${FLEX_SOURCE_DIR}/autogen.sh")
     message(SEND_ERROR "Submodule flex missing. To fix, try run: "
