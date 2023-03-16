@@ -6,19 +6,19 @@ endif()
 set(GTEST_INCLUDED TRUE)
 
 if(USE_INTERNAL_GTEST)
-  set(GTEST_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/gtest/ep)
-  set(GTEST_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/gtest/src)
-  set(GTEST_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/gtest/build)
-  set(GTEST_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/gtest/install)
+  set(GTEST_EP_DIR ${CONTRIB_ROOT_DIR}/gtest/ep)
+  set(GTEST_SOURCE_DIR ${CONTRIB_ROOT_DIR}/gtest/src)
+  set(GTEST_BUILD_DIR ${CONTRIB_ROOT_DIR}/gtest/build)
+  set(GTEST_INSTALL_DIR ${CONTRIB_ROOT_DIR}/gtest/install)
 
   if(NOT EXISTS "${GTEST_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule gtest missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   ExternalProject_Add(
     GTEST
-    PREFIX ${GTEST_EP_ROOT}
+    PREFIX ${GTEST_EP_DIR}
     SOURCE_DIR ${GTEST_SOURCE_DIR}
     BINARY_DIR ${GTEST_BUILD_DIR}
     INSTALL_DIR ${GTEST_INSTALL_DIR}
@@ -34,19 +34,16 @@ if(USE_INTERNAL_GTEST)
     INSTALL_COMMAND ${GENERATOR} -j${NUM_CORES} install)
 
   set(GTEST_INCLUDE_DIRS ${GTEST_INSTALL_DIR}/include)
+  set(GTEST_LIBRARIES gtest_main gtest)
   set(GTEST_LIBRARY_DIRS ${GTEST_INSTALL_DIR}/lib)
-  set(GTEST_MAIN_LIBRARIES gtest_main)
-  set(GTEST_LIBRARIES gtest)
-  set(GTEST_BOTH_LIBRARIES ${GTEST_MAIN_LIBRARIES} ${GTEST_LIBRARIES})
 else()
   find_package(GTest)
   if(NOT GTEST_FOUND)
     message(SEND_ERROR "Can't find system gtest package.")
   endif()
+  set(GTEST_LIBRARIES ${GTEST_LIBRARIES})
 endif()
 
-include_directories(AFTER ${GTEST_INCLUDE_DIRS})
-link_directories(AFTER ${GTEST_LIBRARY_DIRS})
 message(STATUS "Using GTEST_INCLUDE_DIRS=${GTEST_INCLUDE_DIRS}")
-message(STATUS "Using GTEST_BOTH_LIBRARIES=${GTEST_BOTH_LIBRARIES}")
+message(STATUS "Using GTEST_LIBRARIES=${GTEST_LIBRARIES}")
 message(STATUS "Using GTEST_LIBRARY_DIRS=${GTEST_LIBRARY_DIRS}")

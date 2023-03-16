@@ -5,20 +5,22 @@ if(LAPACK_INCLUDED)
 endif()
 set(LAPACK_INCLUDED TRUE)
 
+include(${CMAKE_SOURCE_DIR}/cmake/include/gfortran.cmake)
+
 if(USE_INTERNAL_LAPACK)
-  set(LAPACK_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/lapack/ep)
-  set(LAPACK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/lapack/src)
-  set(LAPACK_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/lapack/build)
-  set(LAPACK_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/lapack/install)
+  set(LAPACK_EP_DIR ${CONTRIB_ROOT_DIR}/lapack/ep)
+  set(LAPACK_SOURCE_DIR ${CONTRIB_ROOT_DIR}/lapack/src)
+  set(LAPACK_BUILD_DIR ${CONTRIB_ROOT_DIR}/lapack/build)
+  set(LAPACK_INSTALL_DIR ${CONTRIB_ROOT_DIR}/lapack/install)
 
   if(NOT EXISTS "${LAPACK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule lapack missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   ExternalProject_Add(
     LAPACK
-    PREFIX ${LAPACK_EP_ROOT}
+    PREFIX ${LAPACK_EP_DIR}
     SOURCE_DIR ${LAPACK_SOURCE_DIR}
     BINARY_DIR ${LAPACK_BUILD_DIR}
     INSTALL_DIR ${LAPACK_INSTALL_DIR}
@@ -36,19 +38,32 @@ if(USE_INTERNAL_LAPACK)
     BUILD_COMMAND ${GENERATOR} -j${NUM_CORES}
     INSTALL_COMMAND ${GENERATOR} -j${NUM_CORES} install)
 
+  if(USE_INTERNAL_GFORTRAN)
+    add_dependencies(LAPACK GFORTRAN)
+  endif()
+
   set(LAPACK_INCLUDE_DIRS ${LAPACK_INSTALL_DIR}/include)
   set(LAPACK_LIBRARIES liblapack.a)
-  set(LAPACK_LIBRARY_DIRS ${LAPACK_INSTALL_DIR}/lib ${GFORTRAN_LIBRARY_DIR})
+  set(LAPACK_LIBRARY_DIRS ${LAPACK_INSTALL_DIR}/lib)
+
+  set(LAPACK_INCLUDE_DIR ${LAPACK_INCLUDE_DIRS})
+  set(LAPACK_LIBRARY ${LAPACK_LIBRARIES})
+  set(LAPACK_LIBRARY_DIR ${LAPACK_LIBRARY_DIRS})
 else()
   find_package(LAPACK)
   if(NOT LAPACK_FOUND)
     message(SEND_ERROR "Can't find system lapack package.")
   endif()
+
+  set(LAPACK_INCLUDE_DIR ${LAPACK_INCLUDE_DIRS})
+  set(LAPACK_LIBRARY ${LAPACK_LIBRARIES})
+  set(LAPACK_LIBRARY_DIR ${LAPACK_LIBRARY_DIRS})
 endif()
 
-set(LAPACK_LIBRARIES ${LAPACK_LIBRARIES} gfortran)
-include_directories(AFTER ${LAPACK_INCLUDE_DIRS})
-link_directories(AFTER ${LAPACK_LIBRARY_DIRS} ${GFORTRAN_LIBRARY_DIR})
+set(LAPACK_INCLUDE_DIRS ${LAPACK_INCLUDE_DIRS} ${GFORTRAN_INCLUDE_DIRS})
+set(LAPACK_LIBRARIES ${LAPACK_LIBRARIES} ${GFORTRAN_LIBRARIES})
+set(LAPACK_LIBRARY_DIRS ${LAPACK_LIBRARY_DIRS} ${GFORTRAN_LIBRARY_DIRS})
+
 message(STATUS "Using LAPACK_INCLUDE_DIRS=${LAPACK_INCLUDE_DIRS}")
 message(STATUS "Using LAPACK_LIBRARIES=${LAPACK_LIBRARIES}")
 message(STATUS "Using LAPACK_LIBRARY_DIRS=${LAPACK_LIBRARY_DIRS}")

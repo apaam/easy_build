@@ -19,6 +19,5 @@ else()
   set(MPI_LIBRARIES ${MPI_CXX_LIBRARIES} ${MPI_C_LIBRARIES})
 endif()
 
-include_directories(AFTER ${MPI_INCLUDE_DIRS})
 message(STATUS "Using MPI_INCLUDE_DIRS=${MPI_INCLUDE_DIRS}")
 message(STATUS "Using MPI_LIBRARIES=${MPI_LIBRARIES}")

@@ -9,19 +9,22 @@ set(CORK_INCLUDED TRUE)
 include(${CMAKE_SOURCE_DIR}/cmake/include/gmp.cmake)
 
 if(USE_INTERNAL_CORK)
-  set(CORK_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/cork/ep)
-  set(CORK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/cork/src)
-  set(CORK_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/cork/build)
-  set(CORK_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/cork/install)
+  set(CORK_EP_DIR ${CONTRIB_ROOT_DIR}/cork/ep)
+  set(CORK_SOURCE_DIR ${CONTRIB_ROOT_DIR}/cork/src)
+  set(CORK_BUILD_DIR ${CONTRIB_ROOT_DIR}/cork/build)
+  set(CORK_INSTALL_DIR ${CONTRIB_ROOT_DIR}/cork/install)
 
   if(NOT EXISTS "${CORK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule cork missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
+
+  set(TMP_CXX_FLAGS "-Wall -ansi -pedantic -O3 -fPIC")
+  set(TMP_C_FLAGS "-Wall -ansi -pedantic -fPIC")
 
   ExternalProject_Add(
     CORK
-    PREFIX ${CORK_EP_ROOT}
+    PREFIX ${CORK_EP_DIR}
     SOURCE_DIR ${CORK_SOURCE_DIR}
     BINARY_DIR ${CORK_BUILD_DIR}
     INSTALL_DIR ${CORK_INSTALL_DIR}
@@ -31,9 +34,14 @@ if(USE_INTERNAL_CORK)
     CONFIGURE_COMMAND
       cmake ${CMAKE_GENERATOR_FLAG} -DCMAKE_INSTALL_PREFIX=${CORK_INSTALL_DIR}
       -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} ${CORK_SOURCE_DIR}
+      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_FLAGS=${TMP_CXX_FLAGS}
+      -DCMAKE_C_FLAGS=${TMP_C_FLAGS} ${CORK_SOURCE_DIR}
     BUILD_COMMAND ${GENERATOR} -j${NUM_CORES}
     INSTALL_COMMAND "")
+
+  if(USE_INTERNAL_GMP)
+    add_dependencies(CORK GMP)
+  endif(USE_INTERNAL_GMP)
 
   set(CORK_INCLUDE_DIRS
       ${CORK_SOURCE_DIR}/src
@@ -53,9 +61,10 @@ else()
   endif()
 endif()
 
+set(CORK_INCLUDE_DIRS ${CORK_INCLUDE_DIRS} ${GMP_INCLUDE_DIRS})
 set(CORK_LIBRARIES ${CORK_LIBRARIES} ${GMP_LIBRARIES})
-include_directories(BEFORE ${CORK_INCLUDE_DIRS})
-link_directories(AFTER ${CORK_LIBRARY_DIRS})
+set(CORK_LIBRARY_DIRS ${CORK_LIBRARY_DIRS} ${GMP_LIBRARY_DIRS})
+
 message(STATUS "Using CORK_INCLUDE_DIRS=${CORK_INCLUDE_DIRS}")
 message(STATUS "Using CORK_LIBRARIES=${CORK_LIBRARIES}")
 message(STATUS "Using CORK_LIBRARY_DIRS=${CORK_LIBRARY_DIRS}")

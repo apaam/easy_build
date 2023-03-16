@@ -5,20 +5,26 @@ if(OPENMP_INCLUDED)
 endif()
 set(OPENMP_INCLUDED TRUE)
 
-if(USE_INTERNAL_OPENMP)
-  set(OPENMP_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/openmp/ep)
-  set(OPENMP_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/openmp/src)
-  set(OPENMP_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/openmp/build)
-  set(OPENMP_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/openmp/install)
+include(${CMAKE_SOURCE_DIR}/cmake/include/gfortran.cmake)
 
+if(USE_INTERNAL_OPENMP)
+  set(OPENMP_EP_DIR ${CONTRIB_ROOT_DIR}/openmp/ep)
+  set(OPENMP_SOURCE_DIR ${CONTRIB_ROOT_DIR}/llvm/src/openmp)
+  set(OPENMP_BUILD_DIR ${CONTRIB_ROOT_DIR}/openmp/build)
+  set(OPENMP_INSTALL_DIR ${CONTRIB_ROOT_DIR}/openmp/install)
+
+  message(STATUS "Using openmp in ${OPENMP_SOURCE_DIR}")
   if(NOT EXISTS "${OPENMP_SOURCE_DIR}/CMakeLists.txt")
-    message(SEND_ERROR "Submodule armadillo missing. To fix, try run: "
-                       "git submodule update --init")
+    message(SEND_ERROR "Submodule openmp missing. To fix, try run: "
+                       "make sync_submodule")
   endif()
+
+  set(TMP_C_FLAGS "-pthread -fPIC")
+  set(TMP_CXX_FLAGS "-pthread -fPIC")
 
   ExternalProject_Add(
     OPENMP
-    PREFIX ${OPENMP_EP_ROOT}
+    PREFIX ${OPENMP_EP_DIR}
     SOURCE_DIR ${OPENMP_SOURCE_DIR}
     BINARY_DIR ${OPENMP_BUILD_DIR}
     INSTALL_DIR ${OPENMP_INSTALL_DIR}
@@ -28,24 +34,37 @@ if(USE_INTERNAL_OPENMP)
     CONFIGURE_COMMAND
       cmake ${CMAKE_GENERATOR_FLAG} -DCMAKE_INSTALL_PREFIX=${OPENMP_INSTALL_DIR}
       -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_FLAGS=-pthread
-      -DCMAKE_C_FLAGS=-pthread -DLIBOMP_ENABLE_SHARED=OFF ${OPENMP_SOURCE_DIR}
+      -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_FLAGS=${TMP_CXX_FLAGS}
+      -DCMAKE_C_FLAGS=${TMP_C_FLAGS} -DOPENMP_ENABLE_LIBOMPTARGET=OFF
+      -DLIBOMP_ENABLE_SHARED=OFF
+      ${OPENMP_SOURCE_DIR}
     BUILD_COMMAND ${GENERATOR} -j${NUM_CORES}
     INSTALL_COMMAND ${GENERATOR} -j${NUM_CORES} install)
+
+  if(USE_INTERNAL_GFORTRAN)
+    add_dependencies(OPENMP GFORTRAN)
+  endif()
 
   set(OPENMP_INCLUDE_DIRS ${OPENMP_INSTALL_DIR}/include)
   set(OPENMP_LIBRARIES omp)
   set(OPENMP_LIBRARY_DIRS ${OPENMP_INSTALL_DIR}/lib)
 else()
-  find_package(OPENMP)
-  if(NOT OPENMP_FOUND)
+  find_package(OpenMP)
+  if(NOT OpenMP_FOUND)
     message(SEND_ERROR "Can't find system openmp package.")
   endif()
+
+  # set(OPENMP_INCLUDE_DIRS ${OpenMP_C_INCLUDE_DIRS} ${OpenMP_CXX_INCLUDE_DIRS}
+  # ${OpenMP_Fortran_INCLUDE_DIRS})
+  set(OPENMP_LIBRARIES ${OpenMP_C_LIBRARIES} ${OpenMP_CXX_LIBRARIES}
+                       ${OpenMP_Fortran_LIBRARIES})
+  # set(OPENMP_LIBRARY_DIRS ${OpenMP_C_INCLUDE_DIRS}/../lib)
 endif()
 
-set(OPENMP_LIBRARIES ${OPENMP_LIBRARIES} gfortran)
-include_directories(AFTER ${OPENMP_INCLUDE_DIRS})
-link_directories(AFTER ${OPENMP_LIBRARY_DIRS})
+set(OPENMP_INCLUDE_DIRS ${OPENMP_INCLUDE_DIRS} ${GFORTRAN_INCLUDE_DIRS})
+set(OPENMP_LIBRARIES ${OPENMP_LIBRARIES} ${GFORTRAN_LIBRARIES})
+set(OPENMP_LIBRARY_DIRS ${OPENMP_LIBRARY_DIRS} ${GFORTRAN_LIBRARY_DIRS})
+
 message(STATUS "Using OPENMP_INCLUDE_DIRS=${OPENMP_INCLUDE_DIRS}")
 message(STATUS "Using OPENMP_LIBRARIES=${OPENMP_LIBRARIES}")
 message(STATUS "Using OPENMP_LIBRARY_DIRS=${OPENMP_LIBRARY_DIRS}")

@@ -6,29 +6,36 @@ endif()
 set(MLPACK_INCLUDED TRUE)
 
 include(${CMAKE_SOURCE_DIR}/cmake/include/armadillo.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/include/ensmallen.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/boost.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/cereal.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/ensmallen.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/stb.cmake)
 
 if(USE_INTERNAL_MLPACK)
-  set(MLPACK_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/mlpack/ep)
-  set(MLPACK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/src)
-  set(MLPACK_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/build)
-  set(MLPACK_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/mlpack/install)
+  set(MLPACK_EP_DIR ${CONTRIB_ROOT_DIR}/mlpack/ep)
+  set(MLPACK_SOURCE_DIR ${CONTRIB_ROOT_DIR}/mlpack/src)
+  set(MLPACK_BUILD_DIR ${CONTRIB_ROOT_DIR}/mlpack/build)
+  set(MLPACK_INSTALL_DIR ${CONTRIB_ROOT_DIR}/mlpack/install)
   set(TMP_C_FLAGS
-      "-DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
+      "-fPIC -DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
   set(TMP_CXX_FLAGS
-      "-DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
+      "-fPIC -DARMA_USE_LAPACK -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5")
+
+  set(MLPACK_USE_OPENMP ON)
+  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # remove openmp support in mlpack of mac OS due to the issue that openmp is
+    # extreamly slow with M1 chip
+    set(MLPACK_USE_OPENMP OFF)
+  endif()
 
   if(NOT EXISTS "${MLPACK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule mlpack missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   ExternalProject_Add(
     MLPACK
-    PREFIX ${MLPACK_EP_ROOT}
+    PREFIX ${MLPACK_EP_DIR}
     SOURCE_DIR ${MLPACK_SOURCE_DIR}
     BINARY_DIR ${MLPACK_BUILD_DIR}
     INSTALL_DIR ${MLPACK_INSTALL_DIR}
@@ -37,7 +44,8 @@ if(USE_INTERNAL_MLPACK)
     LOG_INSTALL TRUE
     LOG_OUTPUT_ON_FAILURE TRUE
     CONFIGURE_COMMAND
-      cmake ${CMAKE_GENERATOR_FLAG} -DBUILD_SHARED_LIBS=OFF
+      cmake ${CMAKE_GENERATOR_FLAG} -DBUILD_CLI_EXECUTABLES=OFF
+      -DBUILD_SHARED_LIBS=OFF -DUSE_OPENMP=${MLPACK_USE_OPENMP}
       -DARMADILLO_INCLUDE_DIR=${ARMADILLO_INCLUDE_DIRS}
       -DARMADILLO_LIBRARY=${ARMADILLO_LIBRARIES}
       -DENSMALLEN_INCLUDE_DIR=${ENSMALLEN_INCLUDE_DIRS}
@@ -49,16 +57,32 @@ if(USE_INTERNAL_MLPACK)
       -DCMAKE_CXX_FLAGS=${TMP_CXX_FLAGS} -DCMAKE_C_FLAGS=${TMP_C_FLAGS}
       -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
       -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} ${MLPACK_SOURCE_DIR}
-    BUILD_COMMAND ${GENERATOR} -j${NUM_CORES} mlpack_headers mlpack
-    INSTALL_COMMAND "")
+    BUILD_COMMAND ${GENERATOR} -j${NUM_CORES}
+    INSTALL_COMMAND ${GENERATOR} -j${NUM_CORES} install)
 
   if(USE_INTERNAL_ARMADILLO)
     add_dependencies(MLPACK ARMADILLO)
-  endif(USE_INTERNAL_ARMADILLO)
+  endif()
 
-  set(MLPACK_INCLUDE_DIRS ${MLPACK_BUILD_DIR}/include)
-  set(MLPACK_LIBRARIES mlpack)
-  set(MLPACK_LIBRARY_DIRS ${MLPACK_BUILD_DIR}/lib)
+  if(USE_INTERNAL_BOOST)
+    add_dependencies(MLPACK BOOST)
+  endif()
+
+  if(USE_INTERNAL_CEREAL)
+    add_dependencies(MLPACK CEREAL)
+  endif()
+
+  if(USE_INTERNAL_ENSMALLEN)
+    add_dependencies(MLPACK ENSMALLEN)
+  endif()
+
+  if(USE_INTERNAL_STB)
+    add_dependencies(MLPACK STB)
+  endif()
+
+  set(MLPACK_INCLUDE_DIRS ${MLPACK_INSTALL_DIR}/include)
+  set(MLPACK_LIBRARIES)
+  set(MLPACK_LIBRARY_DIRS ${MLPACK_INSTALL_DIR}/lib)
 else()
   find_package(MLPACK)
   if(NOT MLPACK_FOUND)
@@ -66,11 +90,16 @@ else()
   endif()
 endif()
 
-add_definitions(-DARMA_USE_LAPACK)
-set(MLPACK_LIBRARIES ${MLPACK_LIBRARIES} ${ARMADILLO_LIBRARIES}
-                     ${BOOST_LIBRARIES})
-include_directories(AFTER ${MLPACK_INCLUDE_DIRS})
-link_directories(AFTER ${MLPACK_LIBRARY_DIRS})
+set(MLPACK_INCLUDE_DIRS
+    ${MLPACK_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIRS} ${BOOST_INCLUDE_DIRS}
+    ${CEREAL_INCLUDE_DIRS} ${ENSMALLEN_INCLUDE_DIRS} ${STB_INCLUDE_DIRS})
+set(MLPACK_LIBRARIES
+    ${MLPACK_LIBRARIES} ${ARMADILLO_LIBRARIES} ${BOOST_LIBRARIES}
+    ${CEREAL_LIBRARIES} ${ENSMALLEN_LIBRARIES} ${STB_LIBRARIES})
+set(MLPACK_LIBRARY_DIRS
+    ${MLPACK_LIBRARY_DIRS} ${ARMADILLO_LIBRARY_DIRS} ${BOOST_LIBRARY_DIRS}
+    ${CEREAL_LIBRARY_DIRS} ${ENSMALLEN_LIBRARY_DIRS} ${STB_LIBRARY_DIRS})
+
 message(STATUS "Using MLPACK_INCLUDE_DIRS=${MLPACK_INCLUDE_DIRS}")
 message(STATUS "Using MLPACK_LIBRARIES=${MLPACK_LIBRARIES}")
 message(STATUS "Using MLPACK_LIBRARY_DIRS=${MLPACK_LIBRARY_DIRS}")

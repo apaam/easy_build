@@ -5,26 +5,24 @@ if(IGL_INCLUDED)
 endif()
 set(IGL_INCLUDED TRUE)
 
-# include(${CMAKE_SOURCE_DIR}/cmake/include/embree.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/include/eigen.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/cgal.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/include/openmp.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/include/eigen.cmake)
 
 if(USE_INTERNAL_IGL)
-  set(IGL_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/igl/ep)
-  set(IGL_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/igl/src)
-  set(IGL_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/igl/build)
-  set(IGL_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/igl/install)
+  set(IGL_EP_DIR ${CONTRIB_ROOT_DIR}/igl/ep)
+  set(IGL_SOURCE_DIR ${CONTRIB_ROOT_DIR}/igl/src)
+  set(IGL_BUILD_DIR ${CONTRIB_ROOT_DIR}/igl/build)
+  set(IGL_INSTALL_DIR ${CONTRIB_ROOT_DIR}/igl/install)
 
   if(NOT EXISTS "${IGL_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule igl missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   # use igl as heads only package for now
   ExternalProject_Add(
     IGL
-    PREFIX ${IGL_EP_ROOT}
+    PREFIX ${IGL_EP_DIR}
     SOURCE_DIR ${IGL_SOURCE_DIR}
     BINARY_DIR ${IGL_BUILD_DIR}
     INSTALL_DIR ${IGL_INSTALL_DIR}
@@ -39,13 +37,9 @@ if(USE_INTERNAL_IGL)
     add_dependencies(IGL CGAL)
   endif()
 
-  if(USE_INTERNAL_OPENMP)
-    add_dependencies(IGL OPENMP)
+  if(USE_INTERNAL_EIGEN)
+    add_dependencies(IGL EIGEN)
   endif()
-
-  # if(USE_INTERNAL_EMBREE)
-  #   add_dependencies(IGL EMBREE)
-  # endif()
 
   set(IGL_INCLUDE_DIRS ${IGL_SOURCE_DIR}/include)
   set(IGL_EXTERNAL_DIRS ${IGL_SOURCE_DIR}/external)
@@ -56,8 +50,12 @@ else()
   endif()
 endif()
 
-set(IGL_LIBRARIES ${EMBREE_LIBRARIES} ${CGAL_LIBRARIES} ${OPENMP_LIBRARIES})
-include_directories(AFTER ${IGL_INCLUDE_DIRS} ${IGL_EXTERNAL_DIRS})
+set(IGL_INCLUDE_DIRS ${IGL_INCLUDE_DIRS} ${EIGEN_INCLUDE_DIRS}
+                     ${CGAL_INCLUDE_DIRS})
+set(IGL_LIBRARIES ${IGL_LIBRARIES} ${EIGEN_LIBRARIES} ${CGAL_LIBRARIES})
+set(IGL_LIBRARY_DIRS ${IGL_LIBRARY_DIRS} ${EIGEN_LIBRARY_DIRS}
+                     ${CGAL_LIBRARY_DIRS})
+
 message(STATUS "Using IGL_INCLUDE_DIRS=${IGL_INCLUDE_DIRS}")
 message(STATUS "Using IGL_LIBRARIES=${IGL_LIBRARIES}")
 message(STATUS "Using IGL_LIBRARY_DIRS=${IGL_LIBRARY_DIRS}")

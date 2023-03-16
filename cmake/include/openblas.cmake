@@ -6,19 +6,19 @@ endif()
 set(OPENBLAS_INCLUDED TRUE)
 
 if(USE_INTERNAL_OPENBLAS)
-  set(OPENBLAS_EP_ROOT ${CMAKE_SOURCE_DIR}/contrib/openblas/ep)
-  set(OPENBLAS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/contrib/openblas/src)
-  set(OPENBLAS_BUILD_DIR ${CMAKE_SOURCE_DIR}/contrib/openblas/build)
-  set(OPENBLAS_INSTALL_DIR ${CMAKE_SOURCE_DIR}/contrib/openblas/install)
+  set(OPENBLAS_EP_DIR ${CONTRIB_ROOT_DIR}/openblas/ep)
+  set(OPENBLAS_SOURCE_DIR ${CONTRIB_ROOT_DIR}/openblas/src)
+  set(OPENBLAS_BUILD_DIR ${CONTRIB_ROOT_DIR}/openblas/build)
+  set(OPENBLAS_INSTALL_DIR ${CONTRIB_ROOT_DIR}/openblas/install)
 
   if(NOT EXISTS "${OPENBLAS_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule openblas missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   ExternalProject_Add(
     OPENBLAS
-    PREFIX ${OPENBLAS_EP_ROOT}
+    PREFIX ${OPENBLAS_EP_DIR}
     SOURCE_DIR ${OPENBLAS_SOURCE_DIR}
     BINARY_DIR ${OPENBLAS_BUILD_DIR}
     INSTALL_DIR ${OPENBLAS_INSTALL_DIR}
@@ -37,15 +37,21 @@ if(USE_INTERNAL_OPENBLAS)
   set(OPENBLAS_INCLUDE_DIRS ${OPENBLAS_INSTALL_DIR}/include)
   set(OPENBLAS_LIBRARIES libopenblas.a)
   set(OPENBLAS_LIBRARY_DIRS ${OPENBLAS_INSTALL_DIR}/lib)
+
+  set(OPENBLAS_INCLUDE_DIR ${OPENBLAS_INCLUDE_DIRS})
+  set(OPENBLAS_LIBRARY ${OPENBLAS_LIBRARIES})
+  set(OPENBLAS_LIBRARY_DIR ${OPENBLAS_LIBRARY_DIRS})
 else()
   find_package(OPENBLAS)
   if(NOT OPENBLAS_FOUND)
     message(SEND_ERROR "Can't find system openblas package.")
   endif()
+
+  set(OPENBLAS_INCLUDE_DIR ${OPENBLAS_INCLUDE_DIRS})
+  set(OPENBLAS_LIBRARY ${OPENBLAS_LIBRARIES})
+  set(OPENBLAS_LIBRARY_DIR ${OPENBLAS_LIBRARY_DIRS})
 endif()
 
-include_directories(AFTER ${OPENBLAS_INCLUDE_DIRS})
-link_directories(AFTER ${OPENBLAS_LIBRARY_DIRS})
 message(STATUS "Using OPENBLAS_INCLUDE_DIRS=${OPENBLAS_INCLUDE_DIRS}")
 message(STATUS "Using OPENBLAS_LIBRARIES=${OPENBLAS_LIBRARIES}")
 message(STATUS "Using OPENBLAS_LIBRARY_DIRS=${OPENBLAS_LIBRARY_DIRS}")

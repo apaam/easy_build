@@ -6,13 +6,14 @@ endif()
 set(EIGEN_INCLUDED TRUE)
 
 if(USE_INTERNAL_EIGEN)
-  if(NOT EXISTS "${CMAKE_SOURCE_DIR}/contrib/eigen/src/Eigen/Eigen")
+  if(NOT EXISTS "${CONTRIB_ROOT_DIR}/eigen/src/Eigen/Eigen")
     message(SEND_ERROR "Submodule eigen missing. To fix, try run: "
-                       "git submodule update --init")
+                       "make sync_submodule")
   endif()
 
   # json is a head only package, so only include dir is needed.
-  set(EIGEN_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/contrib/eigen/src)
+  add_custom_target(EIGEN)
+  set(EIGEN_INCLUDE_DIRS ${CONTRIB_ROOT_DIR}/eigen/src)
 else()
   find_package(EIGEN3)
   if(NOT EIGEN3_FOUND)
@@ -20,5 +21,5 @@ else()
   endif()
 endif()
 
-include_directories(AFTER ${EIGEN_INCLUDE_DIRS})
+message(STATUS "Using EIGEN as head only package")
 message(STATUS "Using EIGEN_INCLUDE_DIRS=${EIGEN_INCLUDE_DIRS}")

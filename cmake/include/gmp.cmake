@@ -16,8 +16,6 @@ else()
   endif()
 endif()
 
-include_directories(AFTER ${GMP_INCLUDE_DIRS})
-link_directories(AFTER ${GMP_LIBRARY_DIRS})
 message(STATUS "Using GMP_INCLUDE_DIRS=${GMP_INCLUDE_DIRS}")
 message(STATUS "Using GMP_LIBRARIES=${GMP_LIBRARIES}")
 message(STATUS "Using GMP_LIBRARY_DIRS=${GMP_LIBRARY_DIRS}")
