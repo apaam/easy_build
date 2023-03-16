@@ -9,10 +9,10 @@ include(${CMAKE_SOURCE_DIR}/cmake/include/boost.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/include/trilinos.cmake)
 
 if(USE_INTERNAL_PERIDIGM)
-  set(PERIDIGM_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/peridigm/ep)
-  set(PERIDIGM_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/peridigm/src)
-  set(PERIDIGM_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/peridigm/build)
-  set(PERIDIGM_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/peridigm/install)
+  set(PERIDIGM_EP_ROOT ${CONTRIB_ROOT_DIR}/peridigm/ep)
+  set(PERIDIGM_SOURCE_DIR ${CONTRIB_ROOT_DIR}/peridigm/src)
+  set(PERIDIGM_BUILD_DIR ${CONTRIB_ROOT_DIR}/peridigm/build)
+  set(PERIDIGM_INSTALL_DIR ${CONTRIB_ROOT_DIR}/peridigm/install)
   set(PERIDIGM_C_FLAGS
       "-O2 -w -pedantic -ftrapv -L${YAML_LIBRARY_DIRS} -L${OPENBLAS_LIBRARY_DIRS} -L${GFORTRAN_LIBRARY_DIR} -lopenblas"
   )

@@ -8,10 +8,10 @@ set(NETCDF_INCLUDED TRUE)
 include(${CMAKE_SOURCE_DIR}/cmake/include/hdf5.cmake)
 
 if(USE_INTERNAL_NETCDF)
-  set(NETCDF_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/netcdf/ep)
-  set(NETCDF_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/netcdf/src)
-  set(NETCDF_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/netcdf/build)
-  set(NETCDF_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/netcdf/install)
+  set(NETCDF_EP_ROOT ${CONTRIB_ROOT_DIR}/netcdf/ep)
+  set(NETCDF_SOURCE_DIR ${CONTRIB_ROOT_DIR}/netcdf/src)
+  set(NETCDF_BUILD_DIR ${CONTRIB_ROOT_DIR}/netcdf/build)
+  set(NETCDF_INSTALL_DIR ${CONTRIB_ROOT_DIR}/netcdf/install)
 
   if(NOT EXISTS "${NETCDF_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule netcdf missing. To fix, try run: "

@@ -6,10 +6,10 @@ endif()
 set(VTK_INCLUDED TRUE)
 
 if(USE_INTERNAL_VTK)
-  set(VTK_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/vtk/ep)
-  set(VTK_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/vtk/src)
-  set(VTK_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/vtk/build)
-  set(VTK_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/vtk/install)
+  set(VTK_EP_ROOT ${CONTRIB_ROOT_DIR}/vtk/ep)
+  set(VTK_SOURCE_DIR ${CONTRIB_ROOT_DIR}/vtk/src)
+  set(VTK_BUILD_DIR ${CONTRIB_ROOT_DIR}/vtk/build)
+  set(VTK_INSTALL_DIR ${CONTRIB_ROOT_DIR}/vtk/install)
 
   if(NOT EXISTS "${VTK_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule vtk missing. To fix, try run: "

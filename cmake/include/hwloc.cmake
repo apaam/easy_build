@@ -6,10 +6,10 @@ endif()
 set(HWLOC_INCLUDED TRUE)
 
 if(USE_INTERNAL_HWLOC)
-  set(HWLOC_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/hwloc/ep)
-  set(HWLOC_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/hwloc/src)
-  set(HWLOC_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/hwloc/build)
-  set(HWLOC_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/hwloc/install)
+  set(HWLOC_EP_ROOT ${CONTRIB_ROOT_DIR}/hwloc/ep)
+  set(HWLOC_SOURCE_DIR ${CONTRIB_ROOT_DIR}/hwloc/src)
+  set(HWLOC_BUILD_DIR ${CONTRIB_ROOT_DIR}/hwloc/build)
+  set(HWLOC_INSTALL_DIR ${CONTRIB_ROOT_DIR}/hwloc/install)
 
   if(NOT EXISTS "${HWLOC_SOURCE_DIR}/autogen.sh")
     message(SEND_ERROR "Submodule hwloc missing. To fix, try run: "

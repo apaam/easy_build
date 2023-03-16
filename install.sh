@@ -36,20 +36,18 @@ MPI_C_COMPILER=$(which mpicc)
 MPI_CXX_COMPILER=$(which mpicxx)
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  CMAKE_C_COMPILER=$(which gcc-10)
-  CMAKE_CXX_COMPILER=$(which g++-10)
-  CMAKE_Fortran_COMPILER=$(which gfortran-10)
-  GFORTRAN_LIBRARY_DIR=/usr/lib
+  CMAKE_C_COMPILER=$(which gcc)
+  CMAKE_CXX_COMPILER=$(which g++)
+  CMAKE_Fortran_COMPILER=$(which gfortran)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  CMAKE_C_COMPILER=$(which gcc-11)
-  CMAKE_CXX_COMPILER=$(which g++-11)
-  CMAKE_Fortran_COMPILER=$(which gfortran-11)
-  GFORTRAN_LIBRARY_DIR=/usr/local/Cellar/gcc/11.2.0/lib/gcc/11
+  CMAKE_C_COMPILER=$(which gcc)
+  CMAKE_CXX_COMPILER=$(which g++)
+  CMAKE_Fortran_COMPILER=$(which gfortran)
+  CMAKE_OSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion)
 else
   CMAKE_C_COMPILER=$(which gcc)
   CMAKE_CXX_COMPILER=$(which g++)
   CMAKE_Fortran_COMPILER=$(which gfortran)
-  GFORTRAN_LIBRARY_DIR=/usr/lib
 fi
 
 mkdir -p build && cd build

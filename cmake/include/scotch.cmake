@@ -6,10 +6,10 @@ endif()
 set(SCOTCH_INCLUDED TRUE)
 
 if(USE_INTERNAL_SCOTCH)
-  set(SCOTCH_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/scotch/ep)
-  set(SCOTCH_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/scotch/src)
-  set(SCOTCH_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/scotch/src/src)
-  set(SCOTCH_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/scotch/install)
+  set(SCOTCH_EP_ROOT ${CONTRIB_ROOT_DIR}/scotch/ep)
+  set(SCOTCH_SOURCE_DIR ${CONTRIB_ROOT_DIR}/scotch/src)
+  set(SCOTCH_BUILD_DIR ${CONTRIB_ROOT_DIR}/scotch/src/src)
+  set(SCOTCH_INSTALL_DIR ${CONTRIB_ROOT_DIR}/scotch/install)
 
   if(NOT EXISTS "${SCOTCH_SOURCE_DIR}/src/Makefile")
     message(SEND_ERROR "Submodule scotch missing. To fix, try run: "

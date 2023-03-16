@@ -8,10 +8,10 @@ set(PETSC_INCLUDED TRUE)
 include(${CMAKE_SOURCE_DIR}/cmake/include/lapack.cmake)
 
 if(USE_INTERNAL_PETSC)
-  set(PETSC_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/petsc/ep)
-  set(PETSC_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/petsc/src)
-  set(PETSC_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/petsc/src)
-  set(PETSC_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/petsc/install)
+  set(PETSC_EP_ROOT ${CONTRIB_ROOT_DIR}/petsc/ep)
+  set(PETSC_SOURCE_DIR ${CONTRIB_ROOT_DIR}/petsc/src)
+  set(PETSC_BUILD_DIR ${CONTRIB_ROOT_DIR}/petsc/src)
+  set(PETSC_INSTALL_DIR ${CONTRIB_ROOT_DIR}/petsc/install)
 
   if(NOT EXISTS "${PETSC_SOURCE_DIR}/configure")
     message(SEND_ERROR "Submodule petsc missing. To fix, try run: "

@@ -6,10 +6,10 @@ endif()
 set(YAML_INCLUDED TRUE)
 
 if(USE_INTERNAL_YAML)
-  set(YAML_EP_ROOT ${CONTRIB_ROOT_DIR}/contrib/yaml/ep)
-  set(YAML_SOURCE_DIR ${CONTRIB_ROOT_DIR}/contrib/yaml/src)
-  set(YAML_BUILD_DIR ${CONTRIB_ROOT_DIR}/contrib/yaml/build)
-  set(YAML_INSTALL_DIR ${CONTRIB_ROOT_DIR}/contrib/yaml/install)
+  set(YAML_EP_ROOT ${CONTRIB_ROOT_DIR}/yaml/ep)
+  set(YAML_SOURCE_DIR ${CONTRIB_ROOT_DIR}/yaml/src)
+  set(YAML_BUILD_DIR ${CONTRIB_ROOT_DIR}/yaml/build)
+  set(YAML_INSTALL_DIR ${CONTRIB_ROOT_DIR}/yaml/install)
 
   if(NOT EXISTS "${YAML_SOURCE_DIR}/CMakeLists.txt")
     message(SEND_ERROR "Submodule yaml missing. To fix, try run: "
