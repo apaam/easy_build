@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
+
+project(EASY_BUILD)
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/find)
+include(ExternalProject)
 
 # pre-settings
-project(EASY_BUILD CXX C)
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX
       ${CMAKE_SOURCE_DIR}/install
@@ -35,33 +38,6 @@ set(CONTRIB_ROOT_DIR
     CACHE PATH "contrib path prefix")
 message(STATUS "using CONTRIB_ROOT_DIR=${CONTRIB_ROOT_DIR}")
 
-# for netdem
-option(USE_INTERNAL_ARMADILLO "use internal armadillo" ON)
-option(USE_INTERNAL_ARPACK "use internal arpack" ON)
-option(USE_INTERNAL_CEREAL "use internal cereal" ON)
-option(USE_INTERNAL_CGAL "use internal cgal" ON)
-option(USE_INTERNAL_CORK "use internal cork" ON)
-option(USE_INTERNAL_EIGEN "use internal eigen" ON)
-option(USE_INTERNAL_ENSMALLEN "use internal ensmallen" ON)
-option(USE_INTERNAL_GTEST "use internal gtest" ON)
-option(USE_INTERNAL_HDF5 "use internal hdf5" ON)
-option(USE_INTERNAL_IGL "use internal igl" ON)
-option(USE_INTERNAL_JSON "use internal json" ON)
-option(USE_INTERNAL_LAPACK "use internal lapack" ON)
-option(USE_INTERNAL_MLPACK "use internal mlpack" ON)
-option(USE_INTERNAL_MPFR "use internal mpfr" ON)
-option(USE_INTERNAL_OPENBLAS "use internal openblas" ON)
-option(USE_INTERNAL_OPENMP "use internal openmp" ON)
-
-# the compilation of these is really time consuming, chose to use pre-build
-# packages in the os.
-option(USE_INTERNAL_BOOST "use internal boost" OFF)
-option(USE_INTERNAL_MPI "use internal mpi" OFF)
-option(USE_INTERNAL_GMP "use internal gmp, usually shipped with gcc" OFF)
-
-# configuration
-include(ExternalProject)
-
 # dealii
 option(USE_INTERNAL_DEALII "use internal dealii" ON)
 option(BUILD_DEALII "build dealii" OFF)
@@ -92,6 +68,17 @@ if(BUILD_HDF5)
 
   if(USE_INTERNAL_HDF5)
     add_dependencies(${PROJECT_NAME} HDF5)
+  endif()
+endif()
+
+# json
+option(USE_INTERNAL_JSON "use internal json" ON)
+option(BUILD_JSON "build json" OFF)
+if(BUILD_JSON)
+  include(cmake/include/json.cmake)
+
+  if(USE_INTERNAL_JSON)
+    add_dependencies(${PROJECT_NAME} JSON)
   endif()
 endif()
 
@@ -225,22 +212,4 @@ if(BUILD_YAML)
   if(USE_INTERNAL_YAML)
     add_dependencies(${PROJECT_NAME} YAML)
   endif()
-endif()
-
-# tests
-option(ENABLE_TESTS "build tests" ON)
-if(ENABLE_TESTS)
-  add_subdirectory(tests)
-endif()
-
-# tools
-option(ENABLE_TOOLS "build tools" ON)
-if(ENABLE_TOOLS)
-  add_subdirectory(tools)
-endif()
-
-# examples
-option(ENABLE_EXAMPLES "build examples" ON)
-if(ENABLE_EXAMPLES)
-  add_subdirectory(examples)
 endif()
